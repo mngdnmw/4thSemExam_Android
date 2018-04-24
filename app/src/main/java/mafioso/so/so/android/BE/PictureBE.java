@@ -7,6 +7,9 @@ public class PictureBE {
     private long lattitude;
     private long longitude;
 
+    public PictureBE()
+    {}
+
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }
