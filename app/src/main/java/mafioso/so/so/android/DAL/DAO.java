@@ -6,16 +6,23 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 import mafioso.so.so.android.BE.PictureBE;
 
 public class DAO {
 
-    FirebaseFirestore db;
-    String TAG = "MAFIOSO";
+    public FirebaseFirestore db;
+    String TAG = "SOSOMAFIOSO";
 
-    private final String FIRE_COLLECTION_PICTURES = "pictures";
+    public static final String FIRE_COLLECTION_PICTURES = "pictures";
 
     public DAO() {
         this.db = FirebaseFirestore.getInstance();
