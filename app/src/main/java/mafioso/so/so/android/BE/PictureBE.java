@@ -44,7 +44,7 @@ public class PictureBE {
 
     public void setLongitude(long longitude) { this.longitude = longitude; }
 
-    public void setBallImage(Bitmap image) { this.image = image;}
+    public void setObjectImage(Bitmap image) { this.image = image;}
 
-    public Bitmap getBallImage() { return image; }
+    public Bitmap getObjectImage() { return image; }
 }
