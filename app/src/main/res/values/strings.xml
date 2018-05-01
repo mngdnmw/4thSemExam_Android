@@ -1,4 +1,8 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">Android</string>
     <string name="textView_birdName">Falcon</string>
+=======
+    <string name="app_name">SoSoMafioso</string>
+>>>>>>> development
 </resources>
