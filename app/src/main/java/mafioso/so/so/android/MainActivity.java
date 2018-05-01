@@ -10,7 +10,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import mafioso.so.so.android.BE.PictureBE;
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        registration = m_DAO.db.collection(m_DAO.FIRE_COLLECTION_PICTURES).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        registration = m_DAO.m_db.collection(m_DAO.FIRE_COLLECTION_PICTURES).addSnapshotListener(new EventListener<QuerySnapshot>() {
                                                                         @Override
                                                                         public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {
 
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                                                                                 PictureBE newPic = new PictureBE(document.getData());
                                                                                 m_pictures.add(newPic);
                                                                                 Log.d(TAG, "Got doc: " + newPic.getName());
+
                                                                             }
                                                                         }
                                                                     }

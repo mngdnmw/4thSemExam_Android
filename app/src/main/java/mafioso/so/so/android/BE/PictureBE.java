@@ -1,5 +1,7 @@
 package mafioso.so.so.android.BE;
 
+import android.graphics.Bitmap;
+
 import java.util.Map;
 
 public class PictureBE {
@@ -8,6 +10,7 @@ public class PictureBE {
     private String timeStamp;
     private long latitude;
     private long longitude;
+    private Bitmap image;
 
     public PictureBE()
     {}
@@ -40,4 +43,8 @@ public class PictureBE {
     public long getLongitude() { return longitude; }
 
     public void setLongitude(long longitude) { this.longitude = longitude; }
+
+    public void setBallImage(Bitmap image) { this.image = image;}
+
+    public Bitmap getBallImage() { return image; }
 }
