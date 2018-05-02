@@ -1,18 +1,19 @@
 package mafioso.so.so.android;
 
-import android.content.Intent;
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     DAO m_DAO;
 
     /** --- Tag for debug logging. --- */
-    String TAG = "SOSOMAFIOSO";
+    String TAG = "SOSOMAFIOSO::MAIN";
 
     /** --- Reference to view elements. --- */
     ListView listOfPictures;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<PictureBE> m_pictures;
 
     ListenerRegistration registration;
+
+    BroadcastReceiver mMessageReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
-        m_DAO = new DAO();
+        m_DAO = new DAO(this);
         m_pictures = new ArrayList<>();
 
         pictureAdapter = new PictureListAdapter(this, m_pictures);
@@ -70,7 +73,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Get extra data included in the Intent
+                Log.d(TAG, "IMG Update");
+                pictureAdapter.notifyDataSetChanged();
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("ImgDlComplete"));
     }
+
+
 
     @Override
     protected void onStart()
@@ -85,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
                                                                             for (DocumentSnapshot document : snapshot.getDocuments()) {
                                                                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                                                                 PictureBE newPic = new PictureBE(document.getData());
+                                                                                m_DAO.applyImage(newPic);
                                                                                 m_pictures.add(newPic);
-                                                                                Log.d(TAG, "Got doc: " + newPic.getName());
 
                                                                             }
                                                                             pictureAdapter.notifyDataSetChanged();
@@ -110,5 +127,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         */
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
     }
 }
