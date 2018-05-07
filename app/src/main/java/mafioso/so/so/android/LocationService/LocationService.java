@@ -13,14 +13,19 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class LocationService {
+public class LocationService implements IViewCallback {
     Context context;
 
     LocationListener locListener;
 
     LocationManager locationManager;
 
-    private Location currentLoc;
+    Location currentLoc;
+
+    /** --- Tag for debug logging. --- */
+    String TAG = "SOSOMAFIOSO::GPS";
+
+
 
     private NumberFormat formatter;
 
@@ -48,6 +53,35 @@ public class LocationService {
 
     }
 
+    public void startListening() {
+
+        locListener = new MyLocationListener(this);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Log.d(TAG, "Has permission, listening location");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000, // the minimal time (ms) between notifications
+                    0, // the minimal distance (meter) between notifications
+                    locListener);
+        }
+        Log.d(TAG, "No permission listen");
+    }
+
+    public void stopListening()
+    {
+        if (locListener == null) return;
+
+
+        locationManager.removeUpdates(locListener);
+    }
+
     public Location lastKnownLocation() {
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -58,11 +92,18 @@ public class LocationService {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            Log.d("GPSGPS", "Has permission, getting location");
+            Log.d(TAG, "Has permission, getting location");
             return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         }
-        Log.d("GPSGPS", "No permission last known");
+        Log.d(TAG, "No permission last known");
         return null;
     }
+
+    @Override
+    public void setCurrentLocation(Location location) {
+        this.currentLoc = location;
+        Log.d(TAG, "setCurrentLocation: " + this.currentLoc.getLatitude() + " : " + this.currentLoc.getLongitude());
+    }
+
 }

@@ -1,12 +1,13 @@
 package mafioso.so.so.android.LocationService;
 
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 
-public class LocationListener {
+public class MyLocationListener implements LocationListener {
     IViewCallback m_view;
 
-    public LocationListener(IViewCallback view) { m_view = view; }
+    public MyLocationListener(IViewCallback view) { m_view = view; }
 
     public void onStatusChanged(String provider, int status,
                                 Bundle extras) {
@@ -25,8 +26,6 @@ public class LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-        m_view.setTxtSpeed(location.getSpeed());
-
         m_view.setCurrentLocation(location);
     }
 }
