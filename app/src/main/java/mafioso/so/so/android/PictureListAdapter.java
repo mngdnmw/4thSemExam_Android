@@ -8,14 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
 
 import mafioso.so.so.android.BE.PictureBE;
-
-/**
- * Created by Fjord82 on 23/04/2018.
- */
 
 public class PictureListAdapter extends BaseAdapter {
 
@@ -66,14 +61,8 @@ public class PictureListAdapter extends BaseAdapter {
         Log.d("Friend Name: ",""+ picture.getName());
         //holder.mTextView_location.setText(picture.getLatitude());
         holder.mTextView_date.setText(picture.getTimeStamp());
-        /*File imgFile = new  File(picture.getObjectImage());
-        if(imgFile.exists())
-        {
-            Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            if (bmImg != null) {
-                holder.mImageView_picture.setImageBitmap(bmImg);
-            }
-        }*/
+        holder.mImageView_picture.setImageBitmap(picture.getObjectImage());
+
         return rowView;
     }
 
