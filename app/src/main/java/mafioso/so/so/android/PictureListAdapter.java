@@ -53,6 +53,16 @@ public class PictureListAdapter extends BaseAdapter {
             viewHolder.mTextView_location = (TextView) rowView.findViewById(R.id.textView_location);
             viewHolder.mTextView_date = (TextView) rowView.findViewById(R.id.textView_date);
             rowView.setTag(viewHolder);
+
+            if(position % 2 == 0)
+            {
+                rowView.setBackgroundResource(R.drawable.listview_selector_even);
+            } else
+            {
+                rowView.setBackgroundResource(R.drawable.listview_selector_odd);
+            }
+
+
         }
         ViewHolder holder = (ViewHolder) rowView.getTag();
         //fill data
