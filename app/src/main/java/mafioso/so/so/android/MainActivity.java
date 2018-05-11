@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
+import mafioso.so.so.android.LocationService.LocationService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("SOSOMAFIOSO", "Picture: " + id);
                 PictureBE picture = pictureAdapter.getItem(position);
                 Toast.makeText(getBaseContext(), "You clicked an image in the list! " + id , Toast.LENGTH_SHORT ).show();
-                showDetailView(null, true);
+                showDetailView(null);
 
             }
         });
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showDetailView(PictureBE picture, boolean newPicture) {
+    private void showDetailView(PictureBE picture) {
 
         /*
         Intent intent = new Intent(this, PictureDetail.class);

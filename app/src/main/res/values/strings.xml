@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SoSoMafioso</string>
+    <string name="todays_weather">Weather</string>
+    <string name="last_spotted">Since</string>
+    <string name="distance">Distance</string>
+    <string name="nearest">Nearest</string>
 </resources>
