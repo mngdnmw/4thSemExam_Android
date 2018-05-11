@@ -55,7 +55,7 @@
                 android:id="@+id/textView_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPlain"
+                android:background="@drawable/background_border"
                 android:paddingBottom="10dp"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
@@ -75,9 +75,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="40dp"
                     android:background="@drawable/background_rect"
                     android:padding="8dp"
+                    android:layout_gravity="center"
                     android:tint="@color/colorPure"
                     app:srcCompat="@drawable/ic_distance" />
 
@@ -86,8 +86,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
                     android:textSize="18sp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:textColor="@color/colorPure"
                     android:text="@string/distance" />
 
@@ -95,8 +96,8 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
                     android:layout_marginStart="20dp"
+                    android:layout_gravity="center"
                     android:tint="@color/colorPure"
                     android:padding="8dp"
                     app:srcCompat="@drawable/ic_city"
@@ -107,8 +108,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
                     android:textSize="18sp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:textColor="@color/colorPure"
                     android:text="@string/nearest" />
             </LinearLayout>
@@ -123,8 +125,8 @@
                     android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
                     android:layout_marginStart="40dp"
+                    android:layout_gravity="center"
                     android:padding="8dp"
                     android:tint="@color/colorPure"
                     app:srcCompat="@drawable/ic_cloud"
@@ -134,8 +136,9 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/colorPure"
                     android:text="@string/todays_weather" />
@@ -144,8 +147,8 @@
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
                     android:layout_marginStart="20dp"
+                    android:layout_gravity="center"
                     android:padding="8dp"
                     android:tint="@color/colorPure"
                     app:srcCompat="@drawable/ic_clock"
@@ -155,8 +158,9 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/colorPure"
                     android:text="@string/last_spotted" />
@@ -173,7 +177,6 @@
             android:background="@drawable/background_oval"
             android:elevation="20dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginTop="10dp"
             android:src="@drawable/ic_map"/>
 
 
