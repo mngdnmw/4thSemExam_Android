@@ -36,15 +36,39 @@ public class PictureListAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getViewTypeCount(){
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        return position % 2;
+    }
+
+    @Override
     public View getView(int position, View view, ViewGroup viewGroup)
     {
         View rowView = view;
+
+        int layoutResource = 0;
+
+        int viewType = getItemViewType(position);
+        switch (viewType) {
+            case 0:
+                layoutResource = R.layout.item_even_listview;
+                break;
+
+            case 1:
+                layoutResource = R.layout.item_odd_listview;
+                break;
+        }
 
         //recycling of views
         if(rowView  == null)
         {
             LayoutInflater inflater = LayoutInflater.from(context);
-            rowView = inflater.inflate(R.layout.custom_row,null);
+            rowView = inflater.inflate(layoutResource,null);
 
             //Configure viewholder
             ViewHolder viewHolder = new ViewHolder();
@@ -53,14 +77,6 @@ public class PictureListAdapter extends BaseAdapter {
             viewHolder.mTextView_location = (TextView) rowView.findViewById(R.id.textView_location);
             viewHolder.mTextView_date = (TextView) rowView.findViewById(R.id.textView_date);
             rowView.setTag(viewHolder);
-
-            if(position % 2 == 0)
-            {
-                rowView.setBackgroundResource(R.drawable.listview_selector_even);
-            } else
-            {
-                rowView.setBackgroundResource(R.drawable.listview_selector_odd);
-            }
 
 
         }

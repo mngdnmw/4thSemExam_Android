@@ -4,37 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/odd_row">
 
-    <ImageView
-        android:id="@+id/imageView_picture"
-        android:layout_width="84dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="TODO"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/bird_mock" />
+
 
     <TextView
         android:id="@+id/textView_objectName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="pictureName"
-        app:layout_constraintStart_toEndOf="@+id/imageView_picture"
+        android:textColor="@color/colorPure"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="6700 Esbjerg Danmark"
-        app:layout_constraintStart_toEndOf="@+id/imageView_picture"
+        android:textColor="@color/colorPure"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_objectName" />
 
     <TextView
@@ -44,7 +38,19 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="1 maj 2018"
+        android:textColor="@color/colorPure"
         app:layout_constraintStart_toEndOf="@+id/textView_location"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_picture"
+        android:layout_width="84dp"
+        android:layout_height="79dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="TODO"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/bird_mock" />
 
 </android.support.constraint.ConstraintLayout>
