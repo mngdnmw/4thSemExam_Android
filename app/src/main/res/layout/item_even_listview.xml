@@ -4,47 +4,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/even_row"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/imageView_picture"
-        android:layout_width="84dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="3dp"
         android:contentDescription="TODO"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/bird_mock" />
+        app:srcCompat="@mipmap/bird_mock"
+        android:background="@drawable/background_rect_line_even"/>
+
+    <View
+        android:id="@+id/view_color"
+        android:layout_width="5dp"
+        android:layout_height="80dp"
+        android:background="@color/colorNature"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_picture"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_objectName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="20sp"
         android:text="pictureName"
-        app:layout_constraintStart_toEndOf="@+id/imageView_picture"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@+id/view_color"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="6700 Esbjerg Danmark"
-        app:layout_constraintStart_toEndOf="@+id/imageView_picture"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@+id/view_color"
         app:layout_constraintTop_toBottomOf="@+id/textView_objectName" />
 
     <TextView
         android:id="@+id/textView_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="1 maj 2018"
-        app:layout_constraintStart_toEndOf="@+id/textView_location"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/textView_location"
+        app:layout_constraintStart_toEndOf="@+id/view_color" />
 
 </android.support.constraint.ConstraintLayout>
