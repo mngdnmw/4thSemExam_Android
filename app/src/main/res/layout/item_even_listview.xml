@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textSize="20sp"
-        android:text="pictureName"
+        android:text="@string/pictureName"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toEndOf="@+id/view_color"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="6700 Esbjerg Danmark"
+        android:text="@string/location"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toEndOf="@+id/view_color"
         app:layout_constraintTop_toBottomOf="@+id/textView_objectName" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="1 maj 2018"
+        android:text="@string/date"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintTop_toBottomOf="@+id/textView_location"
         app:layout_constraintStart_toEndOf="@+id/view_color" />
