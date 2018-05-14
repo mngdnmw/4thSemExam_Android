@@ -24,7 +24,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_weight="1"
-                android:text="Sorted by"
+                android:text="@string/sorted_by"
                 android:textSize="24sp"
                 android:textColor="@color/colorPure"/>
 
