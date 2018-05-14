@@ -4,4 +4,8 @@
     <string name="last_spotted">Since</string>
     <string name="distance">Distance</string>
     <string name="nearest">Nearest</string>
+    <string name="location">Missing content</string>
+    <string name="pictureName">Missing name</string>
+    <string name="date">Missing date</string>
+    <string name="sorted_by">Sorted by</string>
 </resources>
