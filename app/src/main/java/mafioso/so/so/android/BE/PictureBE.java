@@ -1,10 +1,13 @@
 package mafioso.so.so.android.BE;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class PictureBE {
+public class PictureBE implements Parcelable {
     private int id;
     private String name;
     private String timeStamp;
@@ -47,4 +50,40 @@ public class PictureBE {
     public void setObjectImage(Bitmap image) { this.image = image;}
 
     public Bitmap getObjectImage() { return image; }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.timeStamp);
+        dest.writeLong(this.latitude);
+        dest.writeLong(this.longitude);
+        //dest.writeParcelable(this.image, flags);
+    }
+
+    protected PictureBE(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.timeStamp = in.readString();
+        this.latitude = in.readLong();
+        this.longitude = in.readLong();
+        //this.image = in.readParcelable(Bitmap.class.getClassLoader());
+    }
+
+    public static final Creator<PictureBE> CREATOR = new Creator<PictureBE>() {
+        @Override
+        public PictureBE createFromParcel(Parcel source) {
+            return new PictureBE(source);
+        }
+
+        @Override
+        public PictureBE[] newArray(int size) {
+            return new PictureBE[size];
+        }
+    };
 }
