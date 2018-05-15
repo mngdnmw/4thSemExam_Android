@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -24,23 +25,32 @@ import java.util.ArrayList;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
-import mafioso.so.so.android.LocationService.LocationService;
 
 public class MainActivity extends AppCompatActivity {
 
-    /** --- Reference to the adapter for the list view. --- */
+    /**
+     * --- Reference to the adapter for the list view. ---
+     */
     PictureListAdapter pictureAdapter;
 
-    /** --- Reference to the data access object. --- */
+    /**
+     * --- Reference to the data access object. ---
+     */
     DAO m_DAO;
 
-    /** --- Tag for debug logging. --- */
+    /**
+     * --- Tag for debug logging. ---
+     */
     String TAG = "SOSOMAFIOSO::MAIN";
 
-    /** --- Reference to view elements. --- */
+    /**
+     * --- Reference to view elements. ---
+     */
     ListView listOfPictures;
 
-    /** --- List containing PictureBE's gottn from the backend. --- */
+    /**
+     * --- List containing PictureBE's gottn from the backend. ---
+     */
     ArrayList<PictureBE> m_pictures;
 
     ListenerRegistration registration;
@@ -69,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 //Item clicked;
                 Log.d("SOSOMAFIOSO", "Picture: " + id);
                 PictureBE picture = pictureAdapter.getItem(position);
-                Toast.makeText(getBaseContext(), "You clicked an image in the list! " + id , Toast.LENGTH_SHORT ).show();
-                showDetailView(null);
+                Toast.makeText(getBaseContext(), "You clicked an image in the list! " + id, Toast.LENGTH_SHORT).show();
+                showDetailView(picture);
 
             }
         });
@@ -89,44 +99,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
         registration = m_DAO.m_db.collection(m_DAO.FIRE_COLLECTION_PICTURES)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                                                        @Override
-                                                                        public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {
+                                         @Override
+                                         public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {
 
-                                                                            m_pictures.clear();
-                                                                            for (DocumentSnapshot document : snapshot.getDocuments()) {
-                                                                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                                                                PictureBE newPic = new PictureBE(document.getData());
-                                                                                m_DAO.applyImage(newPic);
-                                                                                m_pictures.add(newPic);
+                                             m_pictures.clear();
+                                             for (DocumentSnapshot document : snapshot.getDocuments()) {
+                                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                                 PictureBE newPic = new PictureBE(document.getData());
+                                                 m_DAO.applyImage(newPic);
+                                                 m_pictures.add(newPic);
 
-                                                                            }
-                                                                            pictureAdapter.notifyDataSetChanged();
-                                                                        }
-                                                                    }
-        );
+                                             }
+                                             pictureAdapter.notifyDataSetChanged();
+                                         }
+                                     }
+                );
 
     }
 
     private void showDetailView(PictureBE picture) {
+        Intent intent = new Intent(this, DetailActivity.class);
 
-        /*
-        Intent intent = new Intent(this, PictureDetail.class);
-        Bundle bundle = new Bundle();
-        if (!newPicture)
-        {
-            bundle.putSerializable("picture", picture);
-        }
-        bundle.putBoolean("newPicture", newPicture);
-        intent.putExtras(bundle);
+        String imgPath = m_DAO.saveImgToFile(picture.getObjectImage());
+        Log.d(TAG, "showDetailView: Got path: " + imgPath);
+
+        intent.putExtra("picture", picture);
+        intent.putExtra("path", imgPath);
         startActivity(intent);
-        */
+
 
     }
 
