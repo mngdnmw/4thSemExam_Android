@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.ImageView;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -16,6 +14,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import mafioso.so.so.android.BE.PictureBE;
 
@@ -59,27 +60,10 @@ public class DAO {
     }
 
     private Task<byte[]> getImage(String id) {
-        final long ONE_MEGABYTE = 1024 * 1024;
+        final long MAX_SIZE = 1024 * 1024;
         //StorageReference ref = m_storage.getReferenceFromUrl("gs://sosomafioso-5c8ef.appspot.com/images/" + id + ".JPG");
         Log.d(TAG, "getImage: Attempting download with path " + m_storageRef.child(id + ".JPG").getPath());
-        return m_storageRef.child(id + ".JPG").getBytes(ONE_MEGABYTE);
-    }
-
-    public void applyImage(String id, final ImageView image)
-    {
-        getImage(id).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-        @Override
-        public void onSuccess(byte[] bytes) {
-            Bitmap img = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            Log.d(TAG, "onSuccess: Download success. Image: " + image.getWidth() + "x" + image.getHeight());
-            image.setImageBitmap(img);
-        }
-    }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception exception) {
-            Log.e(TAG, "onFailure: Download failed.", exception);
-        }
-    });
+        return m_storageRef.child(id + ".JPG").getBytes(MAX_SIZE);
     }
 
     public void applyImage(final PictureBE picture)
@@ -106,6 +90,46 @@ public class DAO {
         Log.d("sender", "Broadcasting message");
         Intent intent = new Intent("ImgDlComplete");
         LocalBroadcastManager.getInstance(this.context).sendBroadcast(intent);
+    }
+
+    public String saveImgToFile(Bitmap image)
+    {
+        String path = "";
+        FileOutputStream out = null;
+        File outputDir = context.getCacheDir(); // context being the Activity pointer
+        File outputFile;
+        try {
+            outputFile = File.createTempFile("tempImg", ".PNG", outputDir);
+            path = outputFile.getAbsolutePath();
+            Log.d(TAG, "saveImgToFile: Path: " + path);
+            out = new FileOutputStream(outputFile);
+            image.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                return path;
+
+            }catch (IOException e)
+            {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    public Bitmap getImageFromFile(String path)
+    {
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(path,bmOptions);
+
+        return bitmap;
     }
 
 
