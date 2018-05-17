@@ -81,9 +81,10 @@ public class DetailActivity extends AppCompatActivity {
         loc.setLatitude(m_picture.getLatitude());
         loc.setLongitude(m_picture.getLongitude());
 
-        textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
-        textView_date.setText(m_picture.getTimeStamp());
-        
+        if(m_GPS.lastKnownLocation() != null) {
+            textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
+            textView_date.setText(m_picture.getTimeStamp());
+        }
     }
 
     private void clickMap()
