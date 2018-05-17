@@ -90,7 +90,7 @@ public class DetailActivity extends AppCompatActivity {
             //textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
         }
         textView_date.setText(m_picture.getTimeStamp());
-        
+
     }
 
     private void clickMap()
