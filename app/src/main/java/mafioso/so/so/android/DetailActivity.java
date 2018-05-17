@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.LocationService.LocationService;
@@ -83,7 +86,8 @@ public class DetailActivity extends AppCompatActivity {
         loc.setLongitude(m_picture.getLongitude());
 
         if (m_GPS.lastKnownLocation() != null) {
-            textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
+            textView_disResult.setText(distanceFormat(loc.distanceTo(m_GPS.lastKnownLocation())));
+            //textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
         }
         textView_date.setText(m_picture.getTimeStamp());
         
@@ -96,5 +100,19 @@ public class DetailActivity extends AppCompatActivity {
 
         intent.putExtra("picture", m_picture);
         startActivity(intent);
+    }
+
+    private String distanceFormat(Float distance)
+    {
+        NumberFormat formatter = new DecimalFormat("#.#");
+        if (distance < 10000)
+        {
+            return formatter.format(distance) + "m";
+        }
+        else
+        {
+            Float kmDistance = distance / 1000;
+            return formatter.format(kmDistance) + "km";
+        }
     }
 }

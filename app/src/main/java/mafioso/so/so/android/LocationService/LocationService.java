@@ -37,22 +37,6 @@ public class LocationService implements IViewCallback {
         formatter = new DecimalFormat("#.##");
     }
 
-    protected void showLastKnownLocation() {
-        Location location = lastKnownLocation();
-        if (location == null) {
-            Toast.makeText(context, "Last known location is null",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
-        String latitude = formatter.format(location.getLatitude());
-        String longitude = formatter.format(location.getLongitude());
-        String msg = "Home loc = Latitude: " + latitude + "\n" + "Longitude: "
-                + longitude;
-
-        //txtHomeLoc.setText(msg);
-
-    }
-
     public void startListening() {
 
         locListener = new MyLocationListener(this);
