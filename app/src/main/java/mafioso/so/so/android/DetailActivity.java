@@ -1,5 +1,6 @@
 package mafioso.so.so.android;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -81,7 +82,9 @@ public class DetailActivity extends AppCompatActivity {
         loc.setLatitude(m_picture.getLatitude());
         loc.setLongitude(m_picture.getLongitude());
 
-        textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
+        if (m_GPS.lastKnownLocation() != null) {
+            textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
+        }
         textView_date.setText(m_picture.getTimeStamp());
         
     }
@@ -89,5 +92,9 @@ public class DetailActivity extends AppCompatActivity {
     private void clickMap()
     {
         Toast.makeText(getBaseContext(),"You clicked the button!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MapsActivity.class);
+
+        intent.putExtra("picture", m_picture);
+        startActivity(intent);
     }
 }
