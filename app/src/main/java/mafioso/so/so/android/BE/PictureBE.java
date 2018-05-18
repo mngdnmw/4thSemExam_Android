@@ -11,8 +11,8 @@ public class PictureBE implements Parcelable {
     private int id;
     private String name;
     private String timeStamp;
-    private long latitude;
-    private long longitude;
+    private double latitude;
+    private double longitude;
     private Bitmap image;
 
     public PictureBE()
@@ -23,8 +23,8 @@ public class PictureBE implements Parcelable {
         id = Math.toIntExact((long)map.get("id"));
         name = (String)map.get("name");
         timeStamp = (String)map.get("timeStamp");
-        latitude = (long)map.get("latitude");
-        longitude = (long)map.get("longitude");
+        latitude = (double)map.get("latitude");
+        longitude = (double)map.get("longitude");
     }
 
     public long getId() { return id; }
@@ -39,13 +39,13 @@ public class PictureBE implements Parcelable {
 
     public void setTimeStamp(String timeStamp) { this.timeStamp = timeStamp; }
 
-    public long getLatitude() { return latitude; }
+    public double getLatitude() { return latitude; }
 
-    public void setLatitude(long lattitude) { this.latitude = lattitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 
-    public long getLongitude() { return longitude; }
+    public double getLongitude() { return longitude; }
 
-    public void setLongitude(long longitude) { this.longitude = longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 
     public void setObjectImage(Bitmap image) { this.image = image;}
 
@@ -61,8 +61,8 @@ public class PictureBE implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.name);
         dest.writeString(this.timeStamp);
-        dest.writeLong(this.latitude);
-        dest.writeLong(this.longitude);
+        dest.writeDouble(this.latitude);
+        dest.writeDouble(this.longitude);
         //dest.writeParcelable(this.image, flags);
     }
 
@@ -70,8 +70,8 @@ public class PictureBE implements Parcelable {
         this.id = in.readInt();
         this.name = in.readString();
         this.timeStamp = in.readString();
-        this.latitude = in.readLong();
-        this.longitude = in.readLong();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
         //this.image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 

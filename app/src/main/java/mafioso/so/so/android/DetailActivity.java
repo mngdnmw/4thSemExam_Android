@@ -21,7 +21,7 @@ import mafioso.so.so.android.LocationService.LocationService;
 public class DetailActivity extends AppCompatActivity {
 
     /** --- Tag for debug logging. --- */
-    String TAG = "SOSOMAFIOSO::MAIN";
+    String TAG = "SOSOMAFIOSO::DETAIL";
 
     PictureBE m_picture;
 
@@ -86,9 +86,18 @@ public class DetailActivity extends AppCompatActivity {
         loc.setLongitude(m_picture.getLongitude());
 
         if (m_GPS.lastKnownLocation() != null) {
-            textView_disResult.setText(distanceFormat(loc.distanceTo(m_GPS.lastKnownLocation())));
-            //textView_disResult.setText("" + loc.distanceTo(m_GPS.lastKnownLocation()));
+            Location gpsLoc = m_GPS.lastKnownLocation();
+            textView_disResult.setText(distanceFormat(loc.distanceTo(gpsLoc)));
         }
+
+        String address = m_GPS.getAddress(loc.getLatitude(), loc.getLongitude());
+        Log.d(TAG, "setupViews: Got address: " + address);
+
+        if (address != null)
+        {
+            textView_cityResult.setText(address);
+        }
+
         textView_date.setText(m_picture.getTimeStamp());
 
     }
