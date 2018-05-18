@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
      */
     PictureListAdapter pictureAdapter;
 
+    RecyclerAdapter mAdapter;
+
     /**
      * --- Reference to the data access object. ---
      */
@@ -46,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * --- Reference to view elements. ---
      */
-    ListView listOfPictures;
+    //ListView listOfPictures;
+
+    RecyclerView listOfPictures;
 
     /**
      * --- List containing PictureBE's gottn from the backend. ---
@@ -67,28 +73,20 @@ public class MainActivity extends AppCompatActivity {
         m_DAO = new DAO(this);
         m_pictures = new ArrayList<>();
 
-        pictureAdapter = new PictureListAdapter(this, m_pictures);
         listOfPictures = findViewById(R.id.listView_pictureList);
-        listOfPictures.setAdapter(pictureAdapter);
-        listOfPictures.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                //Item clicked;
-                Log.d("SOSOMAFIOSO", "Picture: " + id);
-                PictureBE picture = pictureAdapter.getItem(position);
-                Toast.makeText(getBaseContext(), "You clicked an image in the list! " + id, Toast.LENGTH_SHORT).show();
-                showDetailView(picture);
+        listOfPictures.setHasFixedSize(true);
 
-            }
-        });
+        listOfPictures.setLayoutManager(new LinearLayoutManager(this));
+
+        mAdapter = new RecyclerAdapter(this, m_pictures);
+
+        listOfPictures.setAdapter(mAdapter);
 
         mMessageReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                // Get extra data included in the Intent
                 Log.d(TAG, "IMG Update");
-                pictureAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
             }
         };
 
@@ -113,23 +111,10 @@ public class MainActivity extends AppCompatActivity {
                                                  m_pictures.add(newPic);
 
                                              }
-                                             pictureAdapter.notifyDataSetChanged();
+                                             mAdapter.notifyDataSetChanged();
                                          }
                                      }
                 );
-
-    }
-
-    private void showDetailView(PictureBE picture) {
-        Intent intent = new Intent(this, DetailActivity.class);
-
-        String imgPath = m_DAO.saveImgToFile(picture.getObjectImage());
-        Log.d(TAG, "showDetailView: Got path: " + imgPath);
-
-        intent.putExtra("picture", picture);
-        intent.putExtra("path", imgPath);
-        startActivity(intent);
-
 
     }
 
