@@ -3,6 +3,8 @@ package mafioso.so.so.android.LocationService;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,8 +12,10 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
 
 public class LocationService implements IViewCallback {
     Context context;
@@ -88,6 +92,22 @@ public class LocationService implements IViewCallback {
     public void setCurrentLocation(Location location) {
         this.currentLoc = location;
         Log.d(TAG, "setCurrentLocation: " + this.currentLoc.getLatitude() + " : " + this.currentLoc.getLongitude());
+    }
+
+    public String getAddress(double latitude, double longitude) {
+        Address address;
+        Geocoder geoCoder = new Geocoder(context);
+        List<Address> list = null;
+        try {
+            list = geoCoder.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (list != null & list.size() > 0) {
+            address = list.get(0);
+            return address.getLocality();
+        }
+        else { return null; }
     }
 
 }
