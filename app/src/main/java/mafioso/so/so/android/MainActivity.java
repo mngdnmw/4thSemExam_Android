@@ -31,10 +31,8 @@ import mafioso.so.so.android.DAL.DAO;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * --- Reference to the adapter for the list view. ---
+     * --- Reference to the adapter for the recycler view. ---
      */
-    PictureListAdapter pictureAdapter;
-
     RecyclerAdapter mAdapter;
 
     /**
@@ -50,17 +48,21 @@ public class MainActivity extends AppCompatActivity {
     /**
      * --- Reference to view elements. ---
      */
-    //ListView listOfPictures;
-
     RecyclerView listOfPictures;
 
     /**
-     * --- List containing PictureBE's gottn from the backend. ---
+     * --- List containing PictureBE's received from the backend. ---
      */
     ArrayList<PictureBE> m_pictures;
 
+    /**
+     * --- Reference to Firestore listener. ---
+     */
     ListenerRegistration registration;
 
+    /**
+     * --- Receiver for image update broadcasts. ---
+     */
     BroadcastReceiver mMessageReceiver;
 
     @Override
@@ -68,11 +70,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        // Request permissions
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
+        // Instantiate member variables.
         m_DAO = new DAO(this);
         m_pictures = new ArrayList<>();
 
+        // Setup recylerview.
         listOfPictures = findViewById(R.id.listView_pictureList);
         listOfPictures.setHasFixedSize(true);
 
