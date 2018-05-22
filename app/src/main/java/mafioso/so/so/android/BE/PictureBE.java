@@ -18,6 +18,11 @@ public class PictureBE implements Parcelable {
     public PictureBE()
     {}
 
+    /**
+     * Constructor for mapping the object with JSON data received from firebase.
+     * @param map
+     * A map containing object data mapped to string keys.
+     */
     public PictureBE(Map<String, Object> map)
     {
         id = Math.toIntExact((long)map.get("id"));
@@ -56,6 +61,11 @@ public class PictureBE implements Parcelable {
         return 0;
     }
 
+    /**
+     * Writes object data to parcel for passing through intent.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
@@ -63,16 +73,18 @@ public class PictureBE implements Parcelable {
         dest.writeString(this.timeStamp);
         dest.writeDouble(this.latitude);
         dest.writeDouble(this.longitude);
-        //dest.writeParcelable(this.image, flags);
     }
 
+    /**
+     * Creates PictureBE from an inputted parcel.
+     * @param in
+     */
     protected PictureBE(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.timeStamp = in.readString();
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
-        //this.image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static final Creator<PictureBE> CREATOR = new Creator<PictureBE>() {
