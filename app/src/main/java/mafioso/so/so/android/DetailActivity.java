@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.temporal.ChronoUnit;
 
 import mafioso.so.so.android.BE.PictureBE;
@@ -40,8 +39,6 @@ public class DetailActivity extends AppCompatActivity {
 
     /** --- Reference to the location service. --- */
     ILocationService m_GPS;
-
-
 
     ImageButton imageButton_map;
 
@@ -88,13 +85,13 @@ public class DetailActivity extends AppCompatActivity {
             setupViews();
         }
 
-        WeatherService.placeIdTask asyncTask = new WeatherService.placeIdTask(new IAsyncResponse() {
+        WeatherService asyncTask = new WeatherService(new IAsyncResponse() {
             public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn) {
 
 
                 textView_weaResult.setText(weather_temperature);
             }
-        });
+        }, this);
 
         asyncTask.execute(""+m_picture.getLatitude(), ""+m_picture.getLongitude()); //  asyncTask.execute("Latitude", "Longitude")
 

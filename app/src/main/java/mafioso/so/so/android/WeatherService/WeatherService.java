@@ -1,5 +1,6 @@
 package mafioso.so.so.android.WeatherService;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,70 +15,73 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class WeatherService {
+import mafioso.so.so.android.R;
+
+public class WeatherService extends AsyncTask<String, Void, JSONObject> {
+
+    public IAsyncResponse delegate = null;
+
+    /** --- Reference to the application context. --- */
+    Context mContext;
 
     /** --- Tag for debug purposes. --- */
     static String TAG = "SOSOMAFIOSO::WEATHER";
 
-    private static final String OPEN_WEATHER_MAP_URL =
+    private final String OPEN_WEATHER_MAP_URL =
             "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
 
-    private static final String OPEN_WEATHER_MAP_API =
-            "94043013e0117b64bfa2b601308a88a3";
+    private String OPEN_WEATHER_MAP_API;
 
+    public WeatherService(IAsyncResponse asyncResponse, Context context) {
+        delegate = asyncResponse;
+        //Assigning call back interface through constructor
+        mContext = context;
 
-    public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
-
-        public IAsyncResponse delegate = null;
-
-        public placeIdTask(IAsyncResponse asyncResponse) {
-            delegate = asyncResponse;
-            //Assigning call back interface through constructor
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-
-            JSONObject jsonWeather = null;
-            try {
-                jsonWeather = getWeatherJSON(params[0], params[1]);
-            } catch (Exception e) {
-                Log.d(TAG, "Cannot process JSON results", e);
-            }
-
-
-            return jsonWeather;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            try {
-                if(json != null){
-                    JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-                    JSONObject main = json.getJSONObject("main");
-                    DateFormat df = DateFormat.getDateTimeInstance();
-
-
-                    String city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
-                    String description = details.getString("description").toUpperCase(Locale.US);
-                    String temperature = String.format("%.2f", main.getDouble("temp"))+ "°";
-                    String humidity = main.getString("humidity") + "%";
-                    String pressure = main.getString("pressure") + " hPa";
-                    String updatedOn = df.format(new Date(json.getLong("dt")*1000));
-
-                    delegate.processFinish(city, description, temperature, humidity, pressure, updatedOn);
-
-                }
-            } catch (JSONException e) {
-
-            }
-
-
-
-        }
+        OPEN_WEATHER_MAP_API = mContext.getResources().getString(R.string.weather_key);
     }
 
-    public static JSONObject getWeatherJSON(String lat, String lon){
+    @Override
+    protected JSONObject doInBackground(String... params) {
+
+        JSONObject jsonWeather = null;
+        try {
+            jsonWeather = getWeatherJSON(params[0], params[1]);
+        } catch (Exception e) {
+            Log.d(TAG, "Cannot process JSON results", e);
+        }
+
+
+        return jsonWeather;
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject json) {
+        try {
+            if(json != null){
+                JSONObject details = json.getJSONArray("weather").getJSONObject(0);
+                JSONObject main = json.getJSONObject("main");
+                DateFormat df = DateFormat.getDateTimeInstance();
+
+
+                String city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
+                String description = details.getString("description").toUpperCase(Locale.US);
+                String temperature = String.format("%.2f", main.getDouble("temp"))+ "°";
+                String humidity = main.getString("humidity") + "%";
+                String pressure = main.getString("pressure") + " hPa";
+                String updatedOn = df.format(new Date(json.getLong("dt")*1000));
+
+                delegate.processFinish(city, description, temperature, humidity, pressure, updatedOn);
+
+            }
+        } catch (JSONException e) {
+
+        }
+
+
+
+    }
+
+    public JSONObject getWeatherJSON(String lat, String lon){
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
             HttpURLConnection connection =
@@ -106,10 +110,4 @@ public class WeatherService {
             return null;
         }
     }
-
-
-
-
 }
-
-
