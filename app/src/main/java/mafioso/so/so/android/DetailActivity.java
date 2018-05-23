@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
@@ -95,8 +98,6 @@ public class DetailActivity extends AppCompatActivity {
 
         asyncTask.execute(""+m_picture.getLatitude(), ""+m_picture.getLongitude()); //  asyncTask.execute("Latitude", "Longitude")
 
-
-
     }
 
     /**
@@ -125,6 +126,8 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         textView_date.setText(m_picture.getTimeStamp());
+        
+        //textView_daysResult.setText(daysBetween(m_picture.getTimeStamp()));
 
     }
 
@@ -159,5 +162,23 @@ public class DetailActivity extends AppCompatActivity {
             Float kmDistance = distance / 1000;
             return formatter.format(kmDistance) + "km";
         }
+    }
+
+    private long daysBetween(String dateString)
+    {
+        //TODO
+        // Convert string to localDate
+
+        //Change this - REMEMBER
+        LocalDate date = LocalDate.now();
+
+        if (date != null) {
+            LocalDate today = LocalDate.now();
+
+            long daysBetween = ChronoUnit.DAYS.between(date, today);
+
+            return daysBetween;
+        }
+        return 0;
     }
 }
