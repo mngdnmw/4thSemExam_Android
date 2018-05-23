@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
+import mafioso.so.so.android.LocationService.ILocationService;
 import mafioso.so.so.android.LocationService.LocationService;
 import mafioso.so.so.android.WeatherService.WeatherService;
 
@@ -24,12 +25,19 @@ public class DetailActivity extends AppCompatActivity {
     /** --- Tag for debug logging. --- */
     String TAG = "SOSOMAFIOSO::DETAIL";
 
+    /** --- Reference to the selected pictureBE. --- */
     PictureBE m_picture;
 
+    /** --- Reference to the data access object. --- */
     DAO m_DAO;
-    LocationService m_GPS;
 
+     /** --- References to view objects. --- */
     ImageView imageView_detailPicture, imageView_weather;
+
+    /** --- Reference to the location service. --- */
+    ILocationService m_GPS;
+
+
 
     ImageButton imageButton_map;
 
@@ -90,6 +98,9 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets up the various views, loading data from the selected picture.
+     */
     private void setupViews()
     {
         imageView_detailPicture.setImageBitmap(m_picture.getObjectImage());
@@ -116,6 +127,9 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Redirects to a map activity, to show the location of the currently selected picture.
+     */
     private void clickMap()
     {
         Toast.makeText(getBaseContext(),"You clicked the button!", Toast.LENGTH_SHORT).show();
@@ -125,10 +139,17 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Formats a given number, returning a string better representing distance.
+     * @param distance
+     * Distance in meters.
+     * @return
+     * A formatted string with unit.
+     */
     private String distanceFormat(Float distance)
     {
         NumberFormat formatter = new DecimalFormat("#.#");
-        if (distance < 10000)
+        if (distance < 1000)
         {
             return formatter.format(distance) + "m";
         }
