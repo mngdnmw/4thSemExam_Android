@@ -14,8 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -24,6 +24,9 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
@@ -38,27 +41,30 @@ public class MainActivity extends AppCompatActivity {
     /**
      * --- Reference to the data access object. ---
      */
-    DAO m_DAO;
+    DAO mDAO;
 
     /**
      * --- Tag for debug logging. ---
      */
     String TAG = "SOSOMAFIOSO::MAIN";
 
+    String mSort = "Ascending";
+
     /**
      * --- Reference to view elements. ---
      */
     RecyclerView listOfPictures;
+    Spinner dropDownMenu;
 
     /**
      * --- List containing PictureBE's received from the backend. ---
      */
-    ArrayList<PictureBE> m_pictures;
+    ArrayList<PictureBE> mPictures;
 
     /**
      * --- Reference to Firestore listener. ---
      */
-    ListenerRegistration registration;
+    ListenerRegistration mRegistration;
 
     /**
      * --- Receiver for image update broadcasts. ---
@@ -77,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         // Instantiate member variables.
-        m_DAO = new DAO(this);
-        m_pictures = new ArrayList<>();
+        mDAO = new DAO(this);
+        mPictures = new ArrayList<>();
 
         // Setup recylerview.
         listOfPictures = findViewById(R.id.listView_pictureList);
@@ -86,9 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
         listOfPictures.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new RecyclerAdapter(this, m_pictures);
+        mAdapter = new RecyclerAdapter(this, mPictures);
 
         listOfPictures.setAdapter(mAdapter);
+
+        dropDownMenu = findViewById(R.id.dropDownMenu);
+        spinnerSetup();
 
         mMessageReceiver = new BroadcastReceiver() {
             @Override
@@ -102,21 +111,66 @@ public class MainActivity extends AppCompatActivity {
                 new IntentFilter("ImgDlComplete"));
     }
 
+    private void spinnerSetup()
+    {
+        String[] items = new String[]{"Ascending", "Descending"};
+        final List<String> itemsArray = new ArrayList<>(Arrays.asList(items));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item,
+                        itemsArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropDownMenu.setAdapter(adapter);
+
+        dropDownMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                mSort = itemsArray.get(position);
+                sortList();
+        }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d(TAG, "onNothingSelected: Oh my god you selected nothing. Rude.");
+            }
+
+        });
+    }
+
+    private void sortList()
+    {
+        switch (mSort) {
+            default:
+                break;
+            case ("Ascending"):
+                Log.d(TAG, "Sort: " + mSort);
+                Collections.sort(mPictures);
+                mAdapter.notifyDataSetChanged();
+                break;
+            case ("Descending"):
+                Log.d(TAG, "Sort: " + mSort);
+                Collections.reverse(mPictures);
+                mAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        registration = m_DAO.m_db.collection(m_DAO.FIRE_COLLECTION_PICTURES)
+        mRegistration = mDAO.m_db.collection(mDAO.FIRE_COLLECTION_PICTURES)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                          @Override
                                          public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {
 
-                                             m_pictures.clear();
+                                             mPictures.clear();
                                              for (DocumentSnapshot document : snapshot.getDocuments()) {
                                                  Log.d(TAG, document.getId() + " => " + document.getData());
                                                  PictureBE newPic = new PictureBE(document.getData());
-                                                 m_DAO.applyImage(newPic);
-                                                 m_pictures.add(newPic);
+                                                 mDAO.applyImage(newPic);
+                                                 mPictures.add(newPic);
+                                                 sortList();
 
                                              }
                                              mAdapter.notifyDataSetChanged();

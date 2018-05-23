@@ -3,11 +3,12 @@ package mafioso.so.so.android.BE;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.Map;
 
-public class PictureBE implements Parcelable {
+public class PictureBE implements Parcelable, Comparable {
     private int id;
     private String name;
     private String timeStamp;
@@ -98,4 +99,10 @@ public class PictureBE implements Parcelable {
             return new PictureBE[size];
         }
     };
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        PictureBE compare = (PictureBE) o;
+        return this.getName().compareToIgnoreCase(compare.getName());
+    }
 }
