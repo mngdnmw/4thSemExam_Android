@@ -18,6 +18,7 @@ import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.LocationService.ILocationService;
 import mafioso.so.so.android.LocationService.LocationService;
+import mafioso.so.so.android.WeatherService.IAsyncResponse;
 import mafioso.so.so.android.WeatherService.WeatherService;
 
 public class DetailActivity extends AppCompatActivity {
@@ -84,7 +85,7 @@ public class DetailActivity extends AppCompatActivity {
             setupViews();
         }
 
-        WeatherService.placeIdTask asyncTask = new WeatherService.placeIdTask(new WeatherService.AsyncResponse() {
+        WeatherService.placeIdTask asyncTask = new WeatherService.placeIdTask(new IAsyncResponse() {
             public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn) {
 
 
