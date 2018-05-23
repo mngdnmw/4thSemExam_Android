@@ -61,8 +61,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                     Toast.makeText(mContext, "Long click: " + pictures.get(position), Toast.LENGTH_SHORT).show();
                 } else {
                     PictureBE picture = pictures.get(position);
-
-                    Log.d(TAG, "onClick: Picture: " + picture.getObjectImage().getWidth() + "x" + picture.getObjectImage().getHeight());
                     showDetailView(picture);
 
                 }
@@ -77,16 +75,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     }
 
     private void showDetailView(PictureBE picture) {
-        Intent intent = new Intent(mContext, DetailActivity.class);
-        if (picture.getObjectImage() != null)
-        {
-            String imgPath = m_DAO.saveImgToFile(picture.getObjectImage());
-            intent.putExtra("path", imgPath);
+        if (picture.getObjectImage() != null) {
+            Intent intent = new Intent(mContext, DetailActivity.class);
+            if (picture.getObjectImage() != null) {
+                String imgPath = m_DAO.saveImgToFile(picture.getObjectImage());
+                intent.putExtra("path", imgPath);
+            }
+
+
+            intent.putExtra("picture", picture);
+            mContext.startActivity(intent);
         }
-
-
-        intent.putExtra("picture", picture);
-        mContext.startActivity(intent);
 
 
     }
