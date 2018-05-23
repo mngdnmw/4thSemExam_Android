@@ -157,12 +157,14 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <ImageView
+                <TextView
                     android:id="@+id/imageView_weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="82dp"
+                    android:layout_height="82dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="40dp"
+                    android:textSize="50sp"
+                    android:textColor="@color/colorPure"
                     android:background="@drawable/background_rect"
                     android:padding="8dp"
                     android:tint="@color/colorPure"

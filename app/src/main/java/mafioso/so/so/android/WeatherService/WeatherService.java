@@ -40,6 +40,40 @@ public class WeatherService extends AsyncTask<String, Void, JSONObject> {
         OPEN_WEATHER_MAP_API = mContext.getResources().getString(R.string.weather_key);
     }
 
+    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
+        Log.d(TAG, "setWeatherIcon: Run");
+        int id = actualId / 100;
+        Log.d(TAG, "setWeatherIcon: " +actualId);
+        String icon = "";
+        if(actualId == 800){
+            long currentTime = new Date().getTime();
+            if(currentTime>=sunrise && currentTime<sunset) {
+                icon = "&#xf00d;";
+            } else {
+                icon = "&#xf02e;";
+            }
+        } else {
+            switch(id) {
+                case 2 : icon = "&#xf01e;";
+                    break;
+                case 3 : icon = "&#xf01c;";
+                    break;
+                case 5 : icon = "&#xf019;";
+                    break;
+                case 6 : icon = "&#xf01b;";
+                    break;
+                case 7 : icon = "&#xf014;";
+                    break;
+                case 8 : icon = "&#xf013;";
+                    break;
+                    //case 0: icon = "&#xf07b";
+                    //break;
+            }
+            Log.d(TAG, "setWeatherIcon: " + icon);
+        }
+        return icon;
+    }
+
     @Override
     protected JSONObject doInBackground(String... params) {
 
@@ -65,12 +99,17 @@ public class WeatherService extends AsyncTask<String, Void, JSONObject> {
 
                 String city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                 String description = details.getString("description").toUpperCase(Locale.US);
+                Log.d(TAG, "onPostExecute: " + description);
                 String temperature = String.format("%.2f", main.getDouble("temp"))+ "°";
                 String humidity = main.getString("humidity") + "%";
                 String pressure = main.getString("pressure") + " hPa";
                 String updatedOn = df.format(new Date(json.getLong("dt")*1000));
 
-                delegate.processFinish(city, description, temperature, humidity, pressure, updatedOn);
+                String iconText = setWeatherIcon(details.getInt("id"),
+                        json.getJSONObject("sys").getLong("sunrise") * 1000,
+                        json.getJSONObject("sys").getLong("sunset") * 1000);
+
+                delegate.processFinish(city, description, temperature, humidity, pressure, updatedOn, iconText);
 
             }
         } catch (JSONException e) {

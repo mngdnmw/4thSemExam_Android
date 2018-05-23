@@ -1,9 +1,11 @@
 package mafioso.so.so.android;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -35,7 +37,8 @@ public class DetailActivity extends AppCompatActivity {
     DAO m_DAO;
 
      /** --- References to view objects. --- */
-    ImageView imageView_detailPicture, imageView_weather;
+    ImageView imageView_detailPicture;
+    TextView imageView_weather;
 
     /** --- Reference to the location service. --- */
     ILocationService m_GPS;
@@ -49,6 +52,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView textView_weaResult;
     TextView textView_daysResult;
 
+    Typeface weatherFont;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,8 @@ public class DetailActivity extends AppCompatActivity {
 
         m_DAO = new DAO(this);
         m_GPS = new LocationService(this);
+
+        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weatherIcons.ttf");
 
         imageView_detailPicture = findViewById(R.id.imageView_detailPicture);
         imageView_weather = findViewById(R.id.imageView_weather);
@@ -76,6 +83,8 @@ public class DetailActivity extends AppCompatActivity {
         textView_weaResult = findViewById(R.id.textView_WeaResult);
         textView_daysResult = findViewById(R.id.textView_daysResult);
 
+        imageView_weather.setTypeface(weatherFont);
+
         if (this.getIntent().getExtras() != null) {
             m_picture = this.getIntent().getExtras().getParcelable("picture");
             String path = this.getIntent().getStringExtra("path");
@@ -86,10 +95,12 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         WeatherService asyncTask = new WeatherService(new IAsyncResponse() {
-            public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn) {
+            public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn, String weather_iconText) {
 
 
                 textView_weaResult.setText(weather_temperature);
+                Log.d(TAG, "processFinish: " + weather_description);
+                imageView_weather.setText(Html.fromHtml(weather_iconText));
             }
         }, this);
 
