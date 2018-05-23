@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.R;
 
 public class DAO {
 
@@ -79,6 +80,9 @@ public class DAO {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.e(TAG, "onFailure: Download failed.", exception);
+                Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.mipmap.bird_mock);
+                picture.setObjectImage(img);
+                sendMessage();
             }
         });
     }
