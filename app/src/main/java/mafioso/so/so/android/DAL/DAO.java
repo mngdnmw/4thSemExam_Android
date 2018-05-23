@@ -54,7 +54,7 @@ public class DAO {
     private Task<byte[]> getImage(String id) {
         final long MAX_SIZE = 1024 * 1024;
         Log.d(TAG, "getImage: Attempting download with path " + m_storageRef.child(id + ".JPG").getPath());
-        return m_storageRef.child(id + ".JPG").getBytes(MAX_SIZE);
+        return m_storageRef.child(id + ".jpg").getBytes(MAX_SIZE);
     }
 
     /**
