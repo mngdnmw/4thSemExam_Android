@@ -40,7 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
-        View view = inflater.inflate(R.layout.item_even_listview, null);
+        View view = inflater.inflate(R.layout.item_even_listview, parent, false);
 
         return new RecyclerViewHolder(view);
     }
