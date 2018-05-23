@@ -16,6 +16,9 @@ import java.util.Locale;
 
 public class WeatherService {
 
+    /** --- Tag for debug purposes. --- */
+    static String TAG = "SOSOMAFIOSO::WEATHER";
+
     private static final String OPEN_WEATHER_MAP_URL =
             "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
 
@@ -23,18 +26,11 @@ public class WeatherService {
             "94043013e0117b64bfa2b601308a88a3";
 
 
-    public interface AsyncResponse {
-
-        void processFinish(String output1, String output2, String output3, String output4, String output5, String output6);
-    }
-
-
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
 
-        public AsyncResponse delegate = null;
-        //Call back interface
+        public IAsyncResponse delegate = null;
 
-        public placeIdTask(AsyncResponse asyncResponse) {
+        public placeIdTask(IAsyncResponse asyncResponse) {
             delegate = asyncResponse;
             //Assigning call back interface through constructor
         }
@@ -46,7 +42,7 @@ public class WeatherService {
             try {
                 jsonWeather = getWeatherJSON(params[0], params[1]);
             } catch (Exception e) {
-                Log.d("Error", "Cannot process JSON results", e);
+                Log.d(TAG, "Cannot process JSON results", e);
             }
 
 
