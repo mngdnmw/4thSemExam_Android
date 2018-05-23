@@ -63,7 +63,7 @@ public class DAO {
         final long MAX_SIZE = 1024 * 1024;
         //StorageReference ref = m_storage.getReferenceFromUrl("gs://sosomafioso-5c8ef.appspot.com/images/" + id + ".JPG");
         Log.d(TAG, "getImage: Attempting download with path " + m_storageRef.child(id + ".JPG").getPath());
-        return m_storageRef.child(id + ".JPG").getBytes(MAX_SIZE);
+        return m_storageRef.child(id + ".jpg").getBytes(MAX_SIZE);
     }
 
     public void applyImage(final PictureBE picture)

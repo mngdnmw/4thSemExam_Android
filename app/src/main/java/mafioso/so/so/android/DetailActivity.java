@@ -17,6 +17,7 @@ import java.text.NumberFormat;
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.LocationService.LocationService;
+import mafioso.so.so.android.WeatherService.WeatherService;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     DAO m_DAO;
     LocationService m_GPS;
 
-    ImageView imageView_detailPicture;
+    ImageView imageView_detailPicture, imageView_weather;
 
     ImageButton imageButton_map;
 
@@ -48,6 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         m_GPS = new LocationService(this);
 
         imageView_detailPicture = findViewById(R.id.imageView_detailPicture);
+        imageView_weather = findViewById(R.id.imageView_weather);
 
         imageButton_map = findViewById(R.id.imageButton_map);
 
@@ -73,6 +75,18 @@ public class DetailActivity extends AppCompatActivity {
             m_picture.setObjectImage(m_DAO.getImageFromFile(path));
             setupViews();
         }
+
+        WeatherService.placeIdTask asyncTask = new WeatherService.placeIdTask(new WeatherService.AsyncResponse() {
+            public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn) {
+
+
+                textView_weaResult.setText(weather_temperature);
+            }
+        });
+
+        asyncTask.execute(""+m_picture.getLatitude(), ""+m_picture.getLongitude()); //  asyncTask.execute("Latitude", "Longitude")
+
+
 
     }
 
