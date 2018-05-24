@@ -2,22 +2,20 @@ package mafioso.so.so.android.DAL;
 
 import android.util.Log;
 
-import mafioso.so.so.android.MyApplication;
+import mafioso.so.so.android.BLL.Factories.DAOFactory;
+import mafioso.so.so.android.BLL.Interfaces.IDAO;
 
 public class DALFacade {
 
     /** --- Tag for debug logging. --- */
     private static String TAG = "SOSOMAFIOSO::Facades::DALFacade";
 
-    private static DAO DAO;
+    private static IDAO DAO;
 
     private static DALFacade instance;
 
     private DALFacade()
-    {
-        DAO = new DAO(MyApplication.getAppContext());
-        Log.d(TAG, "DALFacade: DAO Instance created.");
-    }
+    {}
 
     public static DALFacade getInstance()
     {
@@ -31,12 +29,12 @@ public class DALFacade {
         return instance;
     }
 
-    public static DAO DAO()
+    public static IDAO DAO()
     {
         Log.d(TAG, "DAO: Attempting get instance. Instance: " + (DAO != null));
         if (DAO == null)
         {
-            DAO = new DAO(MyApplication.getAppContext());
+            DAO = new DAOFactory().getDAO();
             Log.d(TAG, "DAO: New DAO instance.");
         }
         Log.d(TAG, "DAO: Returning instance.");

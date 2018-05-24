@@ -2,23 +2,20 @@ package mafioso.so.so.android.BLL;
 
 import android.util.Log;
 
-import mafioso.so.so.android.BLL.LocationService.ILocationService;
-import mafioso.so.so.android.BLL.LocationService.LocationService;
-import mafioso.so.so.android.MyApplication;
+import mafioso.so.so.android.BLL.Interfaces.ILocationService;
+import mafioso.so.so.android.BLL.Factories.LocationServiceFactory;
 
 public class BLLFacade {
 
     /** --- Tag for debug logging. --- */
     private static String TAG = "SOSOMAFIOSO::Facades::BLLFacade";
 
-    private static ILocationService locationService;
+    private ILocationService locationService;
 
     private static BLLFacade instance;
 
     private BLLFacade()
-    {
-        locationService = new LocationService(MyApplication.getAppContext());
-    }
+    {}
 
     public static BLLFacade getInstance()
     {
@@ -32,12 +29,12 @@ public class BLLFacade {
         return instance;
     }
 
-    public static ILocationService LocationService()
+    public ILocationService LocationService()
     {
         Log.d(TAG, "LocationService: Attempting get instance. Instance: " + (locationService != null));
         if (locationService == null)
         {
-            locationService = new LocationService(MyApplication.getAppContext());
+            locationService = new LocationServiceFactory().getLocationService();
             Log.d(TAG, "LocationService: New LocationService instance.");
         }
         Log.d(TAG, "LocationService: Returning instance.");
