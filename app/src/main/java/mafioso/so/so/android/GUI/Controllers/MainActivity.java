@@ -29,48 +29,35 @@ import java.util.Collections;
 import java.util.List;
 
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.DAL.DALFacade;
 import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.GUI.RecyclerAdapter;
 import mafioso.so.so.android.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * --- Reference to the adapter for the recycler view. ---
-     */
+    /** --- Tag for debug logging. --- */
+    String TAG = "SOSOMAFIOSO::MAIN";
+
+    /** --- Reference to the adapter for the recycler view. --- */
     RecyclerAdapter mAdapter;
 
-    /**
-     * --- Reference to the data access object. ---
-     */
-    DAO mDAO;
-
-    /**
-     * --- Tag for debug logging. ---
-     */
-    String TAG = "SOSOMAFIOSO::MAIN";
+    /** --- Reference to the data access facade. --- */
+    DALFacade mDALFacade;
 
     String mSort = "Ascending";
 
-    /**
-     * --- Reference to view elements. ---
-     */
+    /** --- Reference to view elements. --- */
     RecyclerView listOfPictures;
     Spinner dropDownMenu;
 
-    /**
-     * --- List containing PictureBE's received from the backend. ---
-     */
+    /** --- List containing PictureBE's received from the backend. --- */
     ArrayList<PictureBE> mPictures;
 
-    /**
-     * --- Reference to Firestore listener. ---
-     */
+    /** --- Reference to Firestore listener. --- */
     ListenerRegistration mRegistration;
 
-    /**
-     * --- Receiver for image update broadcasts. ---
-     */
+    /** --- Receiver for image update broadcasts. --- */
     BroadcastReceiver mMessageReceiver;
 
     @Override
@@ -85,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         // Instantiate member variables.
-        mDAO = new DAO(this);
+        mDALFacade = DALFacade.getInstance();
         mPictures = new ArrayList<>();
 
         // Setup RecyclerView.
@@ -161,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mRegistration = mDAO.m_db.collection(mDAO.FIRE_COLLECTION_PICTURES)
+        mRegistration = mDALFacade.DAO().m_db.collection(mDALFacade.DAO().FIRE_COLLECTION_PICTURES)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                          @Override
                                          public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {
@@ -170,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                                              for (DocumentSnapshot document : snapshot.getDocuments()) {
                                                  Log.d(TAG, document.getId() + " => " + document.getData());
                                                  PictureBE newPic = new PictureBE(document.getData());
-                                                 mDAO.applyImage(newPic);
+                                                 mDALFacade.DAO().applyImage(newPic);
                                                  mPictures.add(newPic);
                                                  sortList();
 

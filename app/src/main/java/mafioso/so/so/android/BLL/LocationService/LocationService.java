@@ -15,14 +15,10 @@ import java.util.List;
 
 public class LocationService implements ILocationService {
 
-    /**
-     * --- Reference to the application context. ---
-     */
+    /** --- Reference to the application context. --- */
     Context context;
 
-    /**
-     *  --- Reference to the location manager. ---
-     */
+    /** --- Reference to the location manager. --- */
     LocationManager mlocationManager;
 
     /** --- Tag for debug logging. --- */
