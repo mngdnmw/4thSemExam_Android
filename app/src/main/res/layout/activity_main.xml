@@ -15,24 +15,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="100">
 
             <TextView
                 android:id="@+id/textView_sortedBy"
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginTop="8dp"
                 android:text="@string/sorted_by"
                 android:textSize="24sp"
+                android:layout_weight="45"
                 android:textColor="@color/colorPure"/>
+
+            <View
+                android:id="@+id/view_color2"
+                android:layout_width="5dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorNature"
+                android:layout_marginStart="16dp" />
 
             <Spinner
                 android:id="@+id/dropDownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:layout_weight="55"
                 android:backgroundTint="@color/colorPure"
                 android:foregroundTint="@color/colorPure"
                 android:tooltipText="Sort by" />
