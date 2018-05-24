@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mDAO = new DAO(this);
         mPictures = new ArrayList<>();
 
-        // Setup recylerview.
+        // Setup RecyclerView.
         listOfPictures = findViewById(R.id.listView_pictureList);
         listOfPictures.setHasFixedSize(true);
 
