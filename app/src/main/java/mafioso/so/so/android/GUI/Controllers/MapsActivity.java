@@ -1,4 +1,4 @@
-package mafioso.so.so.android;
+package mafioso.so.so.android.GUI.Controllers;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

@@ -1,4 +1,4 @@
-package mafioso.so.so.android.WeatherService;
+package mafioso.so.so.android.BLL.WeatherService;
 
 import android.content.Context;
 import android.os.AsyncTask;
