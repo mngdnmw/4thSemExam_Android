@@ -178,11 +178,6 @@ public class DetailActivity extends AppCompatActivity {
      */
     private long daysBetween(LocalDate date)
     {
-        //TODO
-        // Convert string to localDate
-
-        //Change this - REMEMBER
-
         if (date != null) {
             LocalDate today = LocalDate.now();
 

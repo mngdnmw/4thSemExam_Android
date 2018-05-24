@@ -32,32 +32,20 @@ public class PictureBE implements Parcelable, Comparable {
      */
     public PictureBE(Map<String, Object> map)
     {
-        //Log.d("USERUSERUSER", "PictureBE: ID: "+ map.get("id").toString());
-        //name = (String)map.get("name");
-        // uid = (String)map.get("uid");
 
-        //Date in = (Date)map.get("timeStamp");
-        String test = (String)map.get("time");
-        String TAG = "USERUSERUSER";
-        Log.d(TAG, "PictureBE: FROM JSON" + test);
-        if (test == null)
+        String time = (String)map.get("time");
+        if (time == null)
         {
             timeStamp = LocalDate.now();
         }
         else {
-            timeStamp = LocalDate.parse(test);
+            timeStamp = LocalDate.parse(time);
         }
-        //timeStamp = (LocalDate)map.get("timeStamp");
 
 
         latitude = (double)map.get("latitude");
         longitude = (double)map.get("longitude");
     }
-
-
-    //public String getName() { return name; }
-
-    //public void setName(String name) { this.name = name; }
 
     public String getUid() { return uid; }
 
@@ -91,7 +79,6 @@ public class PictureBE implements Parcelable, Comparable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        //dest.writeString(this.name);
         dest.writeString(this.uid);
         dest.writeString(this.timeStamp.toString());
         dest.writeDouble(this.latitude);
@@ -103,7 +90,6 @@ public class PictureBE implements Parcelable, Comparable {
      * @param in
      */
     protected PictureBE(Parcel in) {
-        //this.name = in.readString();
         this.uid = in.readString();
         this.timeStamp = LocalDate.parse(in.readString());
         this.latitude = in.readDouble();
