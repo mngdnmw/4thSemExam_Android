@@ -29,8 +29,9 @@
 
         <ImageView
             android:id="@+id/imageView_detailPicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/common_full_open_on_phone" />
@@ -75,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:background="@drawable/background_rect"
                     android:padding="8dp"
                     android:tint="@color/colorPure"
@@ -96,17 +97,17 @@
                         android:layout_marginTop="30dp"
                         android:text="@string/distance"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/textView_disResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:layout_marginStart="16dp"
                         android:text="@string/distance_result"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -129,11 +130,12 @@
                         android:id="@+id/textView_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/nearest"/>
 
@@ -141,12 +143,11 @@
                         android:id="@+id/textView_cityResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:layout_marginStart="8dp"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/city_result" />
-
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -162,7 +163,7 @@
                     android:layout_width="82dp"
                     android:layout_height="82dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:textSize="50sp"
                     android:textColor="@color/colorPure"
                     android:background="@drawable/background_rect"
@@ -183,7 +184,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/todays_weather" />
 
@@ -191,9 +192,9 @@
                         android:id="@+id/textView_WeaResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:layout_marginStart="16dp"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/weather_result" />
 
@@ -218,13 +219,14 @@
 
                 <TextView
                     android:id="@+id/textView_days"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/last_spotted" />
 
@@ -232,8 +234,9 @@
                      android:id="@+id/textView_daysResult"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
+                     android:gravity="center_horizontal"
                      android:layout_marginStart="8dp"
-                     android:textSize="14sp"
+                     android:textSize="18sp"
                      android:textColor="@color/colorPrimaryDark"
                      android:text="@string/days_result"/>
 
@@ -251,7 +254,7 @@
             android:layout_alignParentEnd="true"
             android:background="@drawable/background_oval"
             android:elevation="20dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_map"/>
 
 

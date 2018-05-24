@@ -163,12 +163,12 @@ public class DetailActivity extends AppCompatActivity {
         NumberFormat formatter = new DecimalFormat("#.#");
         if (distance < 1000)
         {
-            return formatter.format(distance) + "m";
+            return formatter.format(distance) + " m";
         }
         else
         {
             Float kmDistance = distance / 1000;
-            return formatter.format(kmDistance) + "km";
+            return formatter.format(kmDistance) + " km";
         }
     }
 

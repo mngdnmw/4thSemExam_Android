@@ -11,14 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DALFacade;
-import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.GUI.Controllers.DetailActivity;
 import mafioso.so.so.android.R;
 
@@ -44,7 +41,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
-        View view = inflater.inflate(R.layout.item_even_listview, parent, false);
+        View view = inflater.inflate(R.layout.item_listview, parent, false);
 
         return new RecyclerViewHolder(view);
     }
