@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:baselineAligned="false"
-    android:background="@drawable/even_row"
+    android:background="@drawable/custom_item_row"
     android:padding="16dp"
     android:id="@+id/parent_layout"
     android:weightSum="100"
@@ -25,13 +25,13 @@
         android:padding="3dp"
         android:src="@mipmap/bird_mock"/>
 
-    <View
-        android:id="@+id/view_color"
-        android:layout_width="5dp"
-        android:layout_height="80dp"
-        android:background="@color/colorNature"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@id/imageView_picture"/>
+        <View
+            android:id="@+id/view_color2"
+            android:layout_width="5dp"
+            android:layout_height="80dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginStart="16dp"
+            android:layout_toRightOf="@id/imageView_picture"/>
 
     </RelativeLayout>
 
@@ -44,9 +44,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:text="@string/pictureName"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="#000000"/>
+
+        <View
+            android:id="@+id/view_color"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/colorFlame"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/textView_objectName"/>
 
     <TextView
         android:id="@+id/textView_location"
@@ -54,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textSize="18sp"
         android:text="@string/location"
         android:textColor="@color/colorPrimaryDark"
         android:layout_below="@id/textView_objectName"/>
@@ -64,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textSize="18sp"
         android:text="@string/date"
         android:textColor="@color/colorPrimaryDark"
         android:layout_below="@id/textView_location"/>

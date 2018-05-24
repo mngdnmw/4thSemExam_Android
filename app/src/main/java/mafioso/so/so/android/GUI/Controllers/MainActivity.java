@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         final List<String> itemsArray = new ArrayList<>(Arrays.asList(items));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item,
+                (this, R.layout.spinner_item,
                         itemsArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropDownMenu.setAdapter(adapter);

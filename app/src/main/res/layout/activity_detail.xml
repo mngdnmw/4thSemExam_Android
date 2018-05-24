@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorLight">
 
     <TextView
         android:id="@+id/textView_name"
@@ -22,6 +23,7 @@
     <RelativeLayout
         android:id="@+id/relativeTop"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +63,7 @@
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
                 android:text="@string/date"
-                android:textColor="@color/colorDark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp" />
 
             <LinearLayout
@@ -75,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:background="@drawable/background_rect"
                     android:padding="8dp"
                     android:tint="@color/colorPure"
@@ -96,17 +98,16 @@
                         android:layout_marginTop="30dp"
                         android:text="@string/distance"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/textView_disResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="8dp"
                         android:text="@string/distance_result"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -133,7 +134,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/nearest"/>
 
@@ -142,11 +143,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/city_result" />
-
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -162,7 +161,8 @@
                     android:layout_width="82dp"
                     android:layout_height="82dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
                     android:textSize="50sp"
                     android:textColor="@color/colorPure"
                     android:background="@drawable/background_rect"
@@ -183,7 +183,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/todays_weather" />
 
@@ -191,9 +191,8 @@
                         android:id="@+id/textView_WeaResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="16dp"
-                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/weather_result" />
 
@@ -218,13 +217,13 @@
 
                 <TextView
                     android:id="@+id/textView_days"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/last_spotted" />
 
@@ -233,7 +232,7 @@
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:layout_marginStart="8dp"
-                     android:textSize="14sp"
+                     android:textSize="18sp"
                      android:textColor="@color/colorPrimaryDark"
                      android:text="@string/days_result"/>
 
@@ -245,13 +244,13 @@
 
         <ImageButton
             android:id="@+id/imageButton_map"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/background_oval"
             android:elevation="20dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_map"/>
 
 
