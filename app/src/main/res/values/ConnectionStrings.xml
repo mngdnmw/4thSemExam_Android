@@ -1,4 +1,5 @@
 <resources>
     <string name="FIRE_COLLECTION_PICTURES">pictures</string>
     <string name="FIRE_STORAGE_URL">gs://sosomafioso-5c8ef.appspot.com/images</string>
+    <string name="WEATHER_API_URL">http://api.openweathermap.org/data/2.5/weather?lat=%s&amp;lon=%s&amp;units=metric</string>
 </resources>

@@ -18,7 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import mafioso.so.so.android.BE.PictureBE;
-import mafioso.so.so.android.BLL.Interfaces.IDAO;
+import mafioso.so.so.android.DAL.Interface.IDAO;
 import mafioso.so.so.android.R;
 
 public class DAO implements IDAO {
@@ -30,8 +30,8 @@ public class DAO implements IDAO {
     public FirebaseFirestore mDb;
 
     /** --- Firebase Storage reference --- */
-    private FirebaseStorage m_storage;
-    StorageReference m_storageRef;
+    private FirebaseStorage mStorage;
+    StorageReference mStorageRef;
 
     /** --- Tag for debug purposes. --- */
     String TAG = "SOSOMAFIOSO::DAO";
@@ -41,8 +41,8 @@ public class DAO implements IDAO {
 
         this.mDb = FirebaseFirestore.getInstance();
 
-        this.m_storage = FirebaseStorage.getInstance();
-        this.m_storageRef = m_storage.getReferenceFromUrl(mContext.getResources().getString(R.string.FIRE_STORAGE_URL));
+        this.mStorage = FirebaseStorage.getInstance();
+        this.mStorageRef = mStorage.getReferenceFromUrl(mContext.getResources().getString(R.string.FIRE_STORAGE_URL));
     }
 
     /**
@@ -54,8 +54,8 @@ public class DAO implements IDAO {
      */
     protected Task<byte[]> getImage(String id) {
         final long MAX_SIZE = 1024 * 1024;
-        Log.d(TAG, "getImage: Attempting download with path " + m_storageRef.child(id + ".JPG").getPath());
-        return m_storageRef.child(id + ".jpg").getBytes(MAX_SIZE);
+        Log.d(TAG, "getImage: Attempting download with path " + mStorageRef.child(id + ".JPG").getPath());
+        return mStorageRef.child(id + ".jpg").getBytes(MAX_SIZE);
     }
 
     public FirebaseFirestore getDb()
@@ -71,9 +71,7 @@ public class DAO implements IDAO {
      */
     public void applyImage(final PictureBE picture)
     {
-        // REPLACE WITH ACTUAL PICTURE ID
-        String TESTID = "test";
-        getImage(TESTID).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        getImage(picture.getUid()).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap img = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

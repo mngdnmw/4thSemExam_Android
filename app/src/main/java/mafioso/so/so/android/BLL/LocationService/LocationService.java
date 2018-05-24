@@ -72,6 +72,10 @@ public class LocationService implements ILocationService {
         }
         if (list != null & list.size() > 0) {
             address = list.get(0);
+            if (address.getLocality() == null)
+            {
+                return "No city";
+            }
             return address.getLocality();
         }
         else { return null; }

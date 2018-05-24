@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="33.3">
     <TextView
-        android:id="@+id/textView_objectName"
+        android:id="@+id/textView_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -54,29 +54,18 @@
             android:layout_height="5dp"
             android:background="@color/colorFlame"
             android:layout_marginStart="16dp"
-            android:layout_below="@id/textView_objectName"/>
+            android:layout_below="@id/textView_location"/>
 
-    <TextView
-        android:id="@+id/textView_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        android:text="@string/location"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_below="@id/textView_objectName"/>
-
-    <TextView
-        android:id="@+id/textView_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        android:text="@string/date"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_below="@id/textView_location"/>
+        <TextView
+            android:id="@+id/textView_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_location"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/location"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

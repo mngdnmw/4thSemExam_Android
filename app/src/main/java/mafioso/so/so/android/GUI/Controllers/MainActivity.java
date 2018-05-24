@@ -30,7 +30,6 @@ import java.util.List;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DALFacade;
-import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.GUI.RecyclerAdapter;
 import mafioso.so.so.android.R;
 
@@ -100,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 new IntentFilter("ImgDlComplete"));
     }
 
+    /**
+     * Setup the adapter and content for the spinner.
+     */
     private void spinnerSetup()
     {
         String[] items = new String[]{"Ascending", "Descending"};
@@ -115,17 +117,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 mSort = itemsArray.get(position);
+                Log.d(TAG, "onItemSelected: Selected " + mSort);
                 sortList();
         }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d(TAG, "onNothingSelected: Oh my god you selected nothing. Rude.");
+                Log.d(TAG, "onNothingSelected: Nothing.");
             }
 
         });
     }
 
+    /**
+     * Sort the displayed list of pictures according to ascending/descending order.
+     */
     private void sortList()
     {
         switch (mSort) {
@@ -157,10 +163,10 @@ public class MainActivity extends AppCompatActivity {
                                              for (DocumentSnapshot document : snapshot.getDocuments()) {
                                                  Log.d(TAG, document.getId() + " => " + document.getData());
                                                  PictureBE newPic = new PictureBE(document.getData());
+                                                 newPic.setUid(document.getId());
                                                  mDALFacade.DAO().applyImage(newPic);
                                                  mPictures.add(newPic);
                                                  sortList();
-
                                              }
                                              mAdapter.notifyDataSetChanged();
                                          }

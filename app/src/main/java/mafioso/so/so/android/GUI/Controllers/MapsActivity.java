@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +20,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
-    PictureBE m_picture;
+    PictureBE mPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         if (this.getIntent().getExtras() != null) {
-            m_picture = this.getIntent().getExtras().getParcelable("picture");
+            mPicture = this.getIntent().getExtras().getParcelable("picture");
         }
     }
 
@@ -59,14 +58,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            finish();
             return;
         }
         mMap.setMyLocationEnabled(true);
 
-
-        // Add a marker in Sydney and move the camera
-        LatLng picture = new LatLng(m_picture.getLatitude(), m_picture.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(picture).title(m_picture.getName()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(picture));
+        LatLng picture = new LatLng(mPicture.getLatitude(), mPicture.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(picture).title("Ball"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(picture, 15));
     }
 }

@@ -3,7 +3,6 @@ package mafioso.so.so.android.GUI;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.BLL.BLLFacade;
 import mafioso.so.so.android.DAL.DALFacade;
 import mafioso.so.so.android.GUI.Controllers.DetailActivity;
 import mafioso.so.so.android.R;
@@ -22,6 +22,8 @@ import mafioso.so.so.android.R;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
     DALFacade mDALFacade;
+
+    BLLFacade mBLLFacade;
 
     /** --- Tag for debug logging. --- */
     String TAG = "SOSOMAFIOSO::RECYCLERADAPTER";
@@ -33,7 +35,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     {
         mContext = context;
         mPictures = pictures;
-        DALFacade.getInstance();
+        mDALFacade = DALFacade.getInstance();
+        mBLLFacade = BLLFacade.getInstance();
+
     }
 
     @Override
@@ -59,14 +63,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             holder.itemView.setBackgroundColor(Color.parseColor("#a1b8b7"));
         }
 
-        /*Glide.with(mContext)
-                .asBitmap()
-                .load(picture.getObjectImage())
-                .into(holder.mImageView_picture);*/
-
         holder.mImageView_picture.setImageBitmap(picture.getObjectImage());
-        holder.mTextView_objectName.setText(picture.getName());
-        holder.mTextView_date.setText(picture.getTimeStamp());
+        holder.mTextView_location.setText(mBLLFacade.LocationService().getAddress(picture.getLatitude(), picture.getLongitude()));
+        holder.mTextView_date.setText(picture.getTimeStamp().toString());
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -87,6 +86,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         return mPictures.size();
     }
 
+    /**
+     * Navigate to the details view for the selected object.
+     * @param picture
+     * The selected PictureBE.
+     */
     private void showDetailView(PictureBE picture) {
         if (picture.getObjectImage() != null) {
             Intent intent = new Intent(mContext, DetailActivity.class);
@@ -102,9 +106,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener
     {
         CircleImageView mImageView_picture;
-        TextView mTextView_objectName, mTextView_location, mTextView_date;
-
-        ConstraintLayout parentLayout;
+        TextView mTextView_location, mTextView_date;
 
         private ItemClickListener mItemClickListener;
 
@@ -117,9 +119,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             itemView.setOnLongClickListener(this);
 
             mImageView_picture = itemView.findViewById(R.id.imageView_picture);
-            mTextView_objectName = (TextView) itemView.findViewById(R.id.textView_objectName);
-            mTextView_location = (TextView) itemView.findViewById(R.id.textView_location);
-            mTextView_date = (TextView) itemView.findViewById(R.id.textView_date);
+            mTextView_location = itemView.findViewById(R.id.textView_location);
+            mTextView_date = itemView.findViewById(R.id.textView_date);
 
         }
 

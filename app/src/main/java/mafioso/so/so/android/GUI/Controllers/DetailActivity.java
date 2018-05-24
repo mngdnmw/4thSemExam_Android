@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -31,7 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     String TAG = "SOSOMAFIOSO::DETAIL";
 
     /** --- Reference to the selected pictureBE. --- */
-    PictureBE m_picture;
+    PictureBE mPicture;
 
     /** --- Reference to the data access facade. --- */
     DALFacade mDALFacade;
@@ -45,7 +44,6 @@ public class DetailActivity extends AppCompatActivity {
     ImageButton imageButton_map;
 
     TextView imageView_weather;
-    TextView textView_name;
     TextView textView_date;
     TextView textView_disResult;
     TextView textView_cityResult;
@@ -76,7 +74,6 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        textView_name = findViewById(R.id.textView_name);
         textView_date = findViewById(R.id.textView_date);
         textView_disResult = findViewById(R.id.textView_disResult);
         textView_cityResult = findViewById(R.id.textView_cityResult);
@@ -86,11 +83,11 @@ public class DetailActivity extends AppCompatActivity {
         imageView_weather.setTypeface(weatherFont);
 
         if (this.getIntent().getExtras() != null) {
-            m_picture = this.getIntent().getExtras().getParcelable("picture");
+            mPicture = this.getIntent().getExtras().getParcelable("picture");
             String path = this.getIntent().getStringExtra("path");
             Log.d(TAG, "onCreate: " + path);
 
-            m_picture.setObjectImage(mDALFacade.DAO().getImageFromFile(path));
+            mPicture.setObjectImage(mDALFacade.DAO().getImageFromFile(path));
             setupViews();
         }
 
@@ -104,7 +101,9 @@ public class DetailActivity extends AppCompatActivity {
             }
         }, this);
 
-        asyncTask.execute(""+m_picture.getLatitude(), ""+m_picture.getLongitude()); //  asyncTask.execute("Latitude", "Longitude")
+        asyncTask.execute(""+ mPicture.getLatitude(), ""+ mPicture.getLongitude());
+
+        Log.d(TAG, "Detail UID: " + mPicture.getUid());
 
     }
 
@@ -113,12 +112,11 @@ public class DetailActivity extends AppCompatActivity {
      */
     private void setupViews()
     {
-        imageView_detailPicture.setImageBitmap(m_picture.getObjectImage());
-        textView_name.setText(m_picture.getName());
+        imageView_detailPicture.setImageBitmap(mPicture.getObjectImage());
 
         Location loc = new Location("");
-        loc.setLatitude(m_picture.getLatitude());
-        loc.setLongitude(m_picture.getLongitude());
+        loc.setLatitude(mPicture.getLatitude());
+        loc.setLongitude(mPicture.getLongitude());
 
         if (mBLLFacade.LocationService().lastKnownLocation() != null) {
             Location gpsLoc = mBLLFacade.LocationService().lastKnownLocation();
@@ -133,9 +131,9 @@ public class DetailActivity extends AppCompatActivity {
             textView_cityResult.setText(address);
         }
 
-        textView_date.setText(m_picture.getTimeStamp());
+        textView_date.setText(mPicture.getTimeStamp().toString());
         
-        //textView_daysResult.setText(daysBetween(m_picture.getTimeStamp()));
+        textView_daysResult.setText(""+daysBetween(mPicture.getTimeStamp()));
 
     }
 
@@ -144,10 +142,9 @@ public class DetailActivity extends AppCompatActivity {
      */
     private void clickMap()
     {
-        Toast.makeText(getBaseContext(),"You clicked the button!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MapsActivity.class);
 
-        intent.putExtra("picture", m_picture);
+        intent.putExtra("picture", mPicture);
         startActivity(intent);
     }
 
@@ -174,19 +171,13 @@ public class DetailActivity extends AppCompatActivity {
 
     /**
      * Calculate amount of days between a given date and the current date.
-     * @param dateString
-     * String representation of the date to be compared.
+     * @param date
+     * LocalDate object of the date to be compared.
      * @return
      * Long representing number of days between given date and the current date.
      */
-    private long daysBetween(String dateString)
+    private long daysBetween(LocalDate date)
     {
-        //TODO
-        // Convert string to localDate
-
-        //Change this - REMEMBER
-        LocalDate date = LocalDate.now();
-
         if (date != null) {
             LocalDate today = LocalDate.now();
 

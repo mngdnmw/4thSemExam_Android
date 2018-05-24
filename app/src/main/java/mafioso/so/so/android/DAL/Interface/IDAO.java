@@ -1,4 +1,4 @@
-package mafioso.so.so.android.BLL.Interfaces;
+package mafioso.so.so.android.DAL.Interface;
 
 import android.graphics.Bitmap;
 
@@ -10,7 +10,7 @@ import mafioso.so.so.android.BE.PictureBE;
 public interface IDAO {
 
     FirebaseFirestore getDb();
-    void applyImage(final PictureBE picture);
+    void applyImage(PictureBE picture);
     String saveImgToFile(Bitmap image);
     Bitmap getImageFromFile(String path);
 }
