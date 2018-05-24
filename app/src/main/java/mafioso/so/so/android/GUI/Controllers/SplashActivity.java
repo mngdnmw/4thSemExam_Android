@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         ImageView mafiaImg = findViewById(R.id.imageView_mafia);
         ImageView pandaImg = findViewById(R.id.imageView_panda);
 
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_anim);
 
         mafiaImg.startAnimation(animation);
         pandaImg.startAnimation(animation);
