@@ -1,4 +1,4 @@
-package mafioso.so.so.android;
+package mafioso.so.so.android.GUI.Controllers;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import mafioso.so.so.android.R;
 
 public class SplashActivity extends AppCompatActivity {
 

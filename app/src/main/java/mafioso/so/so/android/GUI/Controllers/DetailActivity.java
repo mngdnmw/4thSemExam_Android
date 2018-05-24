@@ -1,4 +1,4 @@
-package mafioso.so.so.android;
+package mafioso.so.so.android.GUI.Controllers;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -20,10 +20,11 @@ import java.time.temporal.ChronoUnit;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
-import mafioso.so.so.android.LocationService.ILocationService;
-import mafioso.so.so.android.LocationService.LocationService;
-import mafioso.so.so.android.WeatherService.IAsyncResponse;
-import mafioso.so.so.android.WeatherService.WeatherService;
+import mafioso.so.so.android.BLL.LocationService.ILocationService;
+import mafioso.so.so.android.BLL.LocationService.LocationService;
+import mafioso.so.so.android.R;
+import mafioso.so.so.android.BLL.WeatherService.IAsyncResponse;
+import mafioso.so.so.android.BLL.WeatherService.WeatherService;
 
 public class DetailActivity extends AppCompatActivity {
 

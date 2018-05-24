@@ -1,4 +1,4 @@
-package mafioso.so.so.android.LocationService;
+package mafioso.so.so.android.BLL.LocationService;
 
 import android.Manifest;
 import android.content.Context;

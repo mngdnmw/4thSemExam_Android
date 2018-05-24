@@ -1,4 +1,4 @@
-package mafioso.so.so.android;
+package mafioso.so.so.android.GUI;
 
 import android.view.View;
 

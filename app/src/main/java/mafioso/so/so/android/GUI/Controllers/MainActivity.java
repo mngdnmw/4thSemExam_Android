@@ -1,4 +1,4 @@
-package mafioso.so.so.android;
+package mafioso.so.so.android.GUI.Controllers;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -30,6 +30,8 @@ import java.util.List;
 
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
+import mafioso.so.so.android.GUI.RecyclerAdapter;
+import mafioso.so.so.android.R;
 
 public class MainActivity extends AppCompatActivity {
 

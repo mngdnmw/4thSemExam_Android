@@ -1,10 +1,9 @@
-package mafioso.so.so.android;
+package mafioso.so.so.android.GUI;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,14 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mafioso.so.so.android.BE.PictureBE;
 import mafioso.so.so.android.DAL.DAO;
+import mafioso.so.so.android.GUI.Controllers.DetailActivity;
+import mafioso.so.so.android.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
     DAO m_DAO;
 
-    /**
-     * --- Tag for debug logging. ---
-     */
+    /** --- Tag for debug logging. --- */
     String TAG = "SOSOMAFIOSO::RECYCLERADAPTER";
 
     private Context mContext;
