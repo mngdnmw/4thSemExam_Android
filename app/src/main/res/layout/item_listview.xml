@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:baselineAligned="false"
-    android:background="@drawable/even_row"
+    android:background="@drawable/custom_item_row"
     android:padding="16dp"
     android:id="@+id/parent_layout"
     android:weightSum="100"

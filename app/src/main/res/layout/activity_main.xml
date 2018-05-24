@@ -26,7 +26,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/sorted_by"
                 android:textSize="24sp"
-                android:layout_weight="45"
+                android:layout_weight="50"
                 android:textColor="@color/colorPure"/>
 
             <View
@@ -35,7 +35,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorNature"
-                android:layout_marginStart="16dp" />
+                android:layout_marginStart="8dp" />
 
             <Spinner
                 android:id="@+id/dropDownMenu"
@@ -45,7 +45,8 @@
                 android:layout_weight="55"
                 android:backgroundTint="@color/colorPure"
                 android:foregroundTint="@color/colorPure"
-                android:tooltipText="Sort by" />
+                android:tooltipText="Sort by"
+                />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
