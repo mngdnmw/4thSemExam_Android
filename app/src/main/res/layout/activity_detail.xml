@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorLight">
 
     <TextView
         android:id="@+id/textView_name"
@@ -22,6 +23,7 @@
     <RelativeLayout
         android:id="@+id/relativeTop"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,9 +31,8 @@
 
         <ImageView
             android:id="@+id/imageView_detailPicture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/common_full_open_on_phone" />
@@ -62,7 +63,7 @@
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
                 android:text="@string/date"
-                android:textColor="@color/colorDark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp" />
 
             <LinearLayout
@@ -103,8 +104,7 @@
                         android:id="@+id/textView_disResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="8dp"
                         android:text="@string/distance_result"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp" />
@@ -130,7 +130,6 @@
                         android:id="@+id/textView_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
@@ -143,7 +142,6 @@
                         android:id="@+id/textView_cityResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
                         android:layout_marginStart="8dp"
                         android:textSize="18sp"
                         android:textColor="@color/colorPrimaryDark"
@@ -164,6 +162,7 @@
                     android:layout_height="82dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"
+                    android:gravity="center"
                     android:textSize="50sp"
                     android:textColor="@color/colorPure"
                     android:background="@drawable/background_rect"
@@ -192,8 +191,7 @@
                         android:id="@+id/textView_WeaResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="8dp"
                         android:textSize="18sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:text="@string/weather_result" />
@@ -221,7 +219,6 @@
                     android:id="@+id/textView_days"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
@@ -234,7 +231,6 @@
                      android:id="@+id/textView_daysResult"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:gravity="center_horizontal"
                      android:layout_marginStart="8dp"
                      android:textSize="18sp"
                      android:textColor="@color/colorPrimaryDark"
@@ -248,8 +244,8 @@
 
         <ImageButton
             android:id="@+id/imageButton_map"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/background_oval"
