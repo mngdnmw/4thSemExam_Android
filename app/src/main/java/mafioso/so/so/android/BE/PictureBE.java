@@ -88,6 +88,9 @@ public class PictureBE implements Parcelable, Comparable {
         this.longitude = in.readDouble();
     }
 
+    /**
+     * Parcelable creator.
+     */
     public static final Creator<PictureBE> CREATOR = new Creator<PictureBE>() {
         @Override
         public PictureBE createFromParcel(Parcel source) {
@@ -100,6 +103,13 @@ public class PictureBE implements Parcelable, Comparable {
         }
     };
 
+    /**
+     * Comparing this object to another for sorting in lists.
+     * @param o
+     * The object to compare with.
+     * @return
+     * Priority value.
+     */
     @Override
     public int compareTo(@NonNull Object o) {
         PictureBE compare = (PictureBE) o;
