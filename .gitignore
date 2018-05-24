@@ -8,4 +8,9 @@
 /build
 /captures
 .externalNativeBuild
+
+.idea/misc.xml
+app/src/release/res/values/google_maps_api.xml
+app/src/debug/res/values/google_maps_api.xml
+
 app/src/debug/res/values/api_keys.xml
