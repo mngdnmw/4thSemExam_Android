@@ -49,7 +49,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: called. ");
         PictureBE picture = mPictures.get(position);
 
         /*Glide.with(mContext)
