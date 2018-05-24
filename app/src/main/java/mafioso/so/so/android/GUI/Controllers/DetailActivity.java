@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.BLL.BLLFacade;
+import mafioso.so.so.android.DAL.DALFacade;
 import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.BLL.LocationService.ILocationService;
 import mafioso.so.so.android.BLL.LocationService.LocationService;
@@ -34,15 +36,15 @@ public class DetailActivity extends AppCompatActivity {
     /** --- Reference to the selected pictureBE. --- */
     PictureBE m_picture;
 
-    /** --- Reference to the data access object. --- */
-    DAO m_DAO;
+    /** --- Reference to the data access facade. --- */
+    DALFacade mDALFacade;
+
+    /** --- Reference to the business logic facade. --- */
+    BLLFacade mBLLFacade;
 
      /** --- References to view objects. --- */
     ImageView imageView_detailPicture;
     TextView imageView_weather;
-
-    /** --- Reference to the location service. --- */
-    ILocationService m_GPS;
 
     ImageButton imageButton_map;
 
@@ -60,8 +62,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        m_DAO = new DAO(this);
-        m_GPS = new LocationService(this);
+        mDALFacade = DALFacade.getInstance();
+        mBLLFacade = BLLFacade.getInstance();
 
         weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weatherIcons.ttf");
 
@@ -91,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
             String path = this.getIntent().getStringExtra("path");
             Log.d(TAG, "onCreate: " + path);
 
-            m_picture.setObjectImage(m_DAO.getImageFromFile(path));
+            m_picture.setObjectImage(mDALFacade.DAO().getImageFromFile(path));
             setupViews();
         }
 
@@ -121,12 +123,12 @@ public class DetailActivity extends AppCompatActivity {
         loc.setLatitude(m_picture.getLatitude());
         loc.setLongitude(m_picture.getLongitude());
 
-        if (m_GPS.lastKnownLocation() != null) {
-            Location gpsLoc = m_GPS.lastKnownLocation();
+        if (mBLLFacade.LocationService().lastKnownLocation() != null) {
+            Location gpsLoc = mBLLFacade.LocationService().lastKnownLocation();
             textView_disResult.setText(distanceFormat(loc.distanceTo(gpsLoc)));
         }
 
-        String address = m_GPS.getAddress(loc.getLatitude(), loc.getLongitude());
+        String address = mBLLFacade.LocationService().getAddress(loc.getLatitude(), loc.getLongitude());
         Log.d(TAG, "setupViews: Got address: " + address);
 
         if (address != null)
@@ -173,6 +175,13 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Calculate amount of days between a given date and the current date.
+     * @param dateString
+     * String representation of the date to be compared.
+     * @return
+     * Long representing number of days between given date and the current date.
+     */
     private long daysBetween(String dateString)
     {
         //TODO

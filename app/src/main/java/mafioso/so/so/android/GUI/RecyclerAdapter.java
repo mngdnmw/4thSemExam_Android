@@ -13,13 +13,14 @@ import android.widget.Toast;
 import java.util.List;
 
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.DAL.DALFacade;
 import mafioso.so.so.android.DAL.DAO;
 import mafioso.so.so.android.GUI.Controllers.DetailActivity;
 import mafioso.so.so.android.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
-    DAO m_DAO;
+    DALFacade mDALFacade;
 
     /** --- Tag for debug logging. --- */
     String TAG = "SOSOMAFIOSO::RECYCLERADAPTER";
@@ -31,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     {
         this.mContext = context;
         this.pictures = pictures;
-        m_DAO = new DAO(context);
+        DALFacade.getInstance();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         if (picture.getObjectImage() != null) {
             Intent intent = new Intent(mContext, DetailActivity.class);
             if (picture.getObjectImage() != null) {
-                String imgPath = m_DAO.saveImgToFile(picture.getObjectImage());
+                String imgPath = mDALFacade.DAO().saveImgToFile(picture.getObjectImage());
                 intent.putExtra("path", imgPath);
             }
 
