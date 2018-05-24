@@ -2,6 +2,7 @@ package mafioso.so.so.android.GUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +52,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         PictureBE picture = mPictures.get(position);
+
+        if(position %2 == 1)
+        {
+            holder.itemView.setBackgroundColor(Color.parseColor("#b7d0ce"));
+        }
+        else
+        {
+            holder.itemView.setBackgroundColor(Color.parseColor("#a1b8b7"));
+        }
 
         /*Glide.with(mContext)
                 .asBitmap()
