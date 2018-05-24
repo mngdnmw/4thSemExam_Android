@@ -41,10 +41,10 @@ public class DetailActivity extends AppCompatActivity {
 
      /** --- References to view objects. --- */
     ImageView imageView_detailPicture;
-    TextView imageView_weather;
 
     ImageButton imageButton_map;
 
+    TextView imageView_weather;
     TextView textView_name;
     TextView textView_date;
     TextView textView_disResult;
