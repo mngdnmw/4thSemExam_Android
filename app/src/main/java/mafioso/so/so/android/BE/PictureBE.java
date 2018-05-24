@@ -4,20 +4,26 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import java.io.Serializable;
+import com.google.firebase.Timestamp;
+
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Map;
 
 public class PictureBE implements Parcelable, Comparable {
-    private int id;
-    private String name;
-    private String timeStamp;
+    //private String name;
+    private String uid;
+    private LocalDate timeStamp;
     private double latitude;
     private double longitude;
     private Bitmap image;
-
-    public PictureBE()
-    {}
 
     /**
      * Constructor for mapping the object with JSON data received from firebase.
@@ -26,24 +32,40 @@ public class PictureBE implements Parcelable, Comparable {
      */
     public PictureBE(Map<String, Object> map)
     {
-        id = Math.toIntExact((long)map.get("id"));
-        name = (String)map.get("name");
-        timeStamp = (String)map.get("timeStamp");
+        //Log.d("USERUSERUSER", "PictureBE: ID: "+ map.get("id").toString());
+        //name = (String)map.get("name");
+        // uid = (String)map.get("uid");
+
+        //Date in = (Date)map.get("timeStamp");
+        String test = (String)map.get("time");
+        String TAG = "USERUSERUSER";
+        Log.d(TAG, "PictureBE: FROM JSON" + test);
+        if (test == null)
+        {
+            timeStamp = LocalDate.now();
+        }
+        else {
+            timeStamp = LocalDate.parse(test);
+        }
+        //timeStamp = (LocalDate)map.get("timeStamp");
+
+
         latitude = (double)map.get("latitude");
         longitude = (double)map.get("longitude");
     }
 
-    public long getId() { return id; }
 
-    public void setId(int id) { this.id = id; }
+    //public String getName() { return name; }
 
-    public String getName() { return name; }
+    //public void setName(String name) { this.name = name; }
 
-    public void setName(String name) { this.name = name; }
+    public String getUid() { return uid; }
 
-    public String getTimeStamp() { return timeStamp; }
+    public void setUid(String uid) { this.uid = uid;}
 
-    public void setTimeStamp(String timeStamp) { this.timeStamp = timeStamp; }
+    public LocalDate getTimeStamp() { return timeStamp; }
+
+    public void setTimeStamp(LocalDate timeStamp) { this.timeStamp = timeStamp; }
 
     public double getLatitude() { return latitude; }
 
@@ -69,9 +91,9 @@ public class PictureBE implements Parcelable, Comparable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.timeStamp);
+        //dest.writeString(this.name);
+        dest.writeString(this.uid);
+        dest.writeString(this.timeStamp.toString());
         dest.writeDouble(this.latitude);
         dest.writeDouble(this.longitude);
     }
@@ -81,9 +103,9 @@ public class PictureBE implements Parcelable, Comparable {
      * @param in
      */
     protected PictureBE(Parcel in) {
-        this.id = in.readInt();
-        this.name = in.readString();
-        this.timeStamp = in.readString();
+        //this.name = in.readString();
+        this.uid = in.readString();
+        this.timeStamp = LocalDate.parse(in.readString());
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
     }
@@ -113,6 +135,6 @@ public class PictureBE implements Parcelable, Comparable {
     @Override
     public int compareTo(@NonNull Object o) {
         PictureBE compare = (PictureBE) o;
-        return this.getName().compareToIgnoreCase(compare.getName());
+        return this.getTimeStamp().toString().compareToIgnoreCase(compare.getTimeStamp().toString());
     }
 }

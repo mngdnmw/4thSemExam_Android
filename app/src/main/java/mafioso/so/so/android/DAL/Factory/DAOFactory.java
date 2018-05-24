@@ -1,7 +1,7 @@
-package mafioso.so.so.android.BLL.Factories;
+package mafioso.so.so.android.DAL.Factory;
 
 import mafioso.so.so.android.DAL.DAO;
-import mafioso.so.so.android.BLL.Interfaces.IDAO;
+import mafioso.so.so.android.DAL.Interface.IDAO;
 import mafioso.so.so.android.MyApplication;
 
 public class DAOFactory {

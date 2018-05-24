@@ -10,13 +10,20 @@ public class BLLFacade {
     /** --- Tag for debug logging. --- */
     private static String TAG = "SOSOMAFIOSO::Facades::BLLFacade";
 
+    /** --- Reference to LocationService object. --- */
     private ILocationService locationService;
 
+    /** --- Singleton instance of the BLLFacade. --- */
     private static BLLFacade instance;
 
     private BLLFacade()
     {}
 
+    /**
+     * Get the singleton instance of the BLL facade. Creates new if null.
+     * @return
+     * BLL Facade object.
+     */
     public static BLLFacade getInstance()
     {
         Log.d(TAG, "getInstance: Instance state:" + (instance != null));
@@ -29,6 +36,11 @@ public class BLLFacade {
         return instance;
     }
 
+    /**
+     * Get LocationService instance. Retrieve new instance from factory if null.
+     * @return
+     * LocationService object instance.
+     */
     public ILocationService LocationService()
     {
         Log.d(TAG, "LocationService: Attempting get instance. Instance: " + (locationService != null));

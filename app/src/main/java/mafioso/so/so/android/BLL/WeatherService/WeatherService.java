@@ -27,20 +27,29 @@ public class WeatherService extends AsyncTask<String, Void, JSONObject> {
     /** --- Tag for debug purposes. --- */
     static String TAG = "SOSOMAFIOSO::WEATHER";
 
-    private final String OPEN_WEATHER_MAP_URL =
-            "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
+    /** --- Reference to URL for weather API. --- */
+    private String OPEN_WEATHER_MAP_URL;
 
+    /** --- Reference to the API key for the weather API. --- */
     private String OPEN_WEATHER_MAP_API;
 
     public WeatherService(IAsyncResponse asyncResponse, Context context) {
         delegate = asyncResponse;
-        //Assigning call back interface through constructor
+
         mContext = context;
 
+        OPEN_WEATHER_MAP_URL = mContext.getResources().getString(R.string.WEATHER_API_URL);
         OPEN_WEATHER_MAP_API = mContext.getResources().getString(R.string.weather_key);
     }
 
-    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
+    /**
+     * Set icon depending on weather conditions.
+     * @param actualId
+     * @param sunrise
+     * @param sunset
+     * @return
+     */
+    private static String setWeatherIcon(int actualId, long sunrise, long sunset){
         Log.d(TAG, "setWeatherIcon: Run");
         int id = actualId / 100;
         Log.d(TAG, "setWeatherIcon: " +actualId);
@@ -66,8 +75,6 @@ public class WeatherService extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case 8 : icon = "&#xf013;";
                     break;
-                    //case 0: icon = "&#xf07b";
-                    //break;
             }
             Log.d(TAG, "setWeatherIcon: " + icon);
         }
@@ -88,6 +95,11 @@ public class WeatherService extends AsyncTask<String, Void, JSONObject> {
         return jsonWeather;
     }
 
+    /**
+     * Map and return JSON object data once retrieved.
+     * @param json
+     * Retrieved JSON object.
+     */
     @Override
     protected void onPostExecute(JSONObject json) {
         try {
@@ -120,6 +132,15 @@ public class WeatherService extends AsyncTask<String, Void, JSONObject> {
 
     }
 
+    /**
+     * Attempts to retrieve weather information for the given location.
+     * @param lat
+     * Latitude of position.
+     * @param lon
+     * Longitude of position.
+     * @return
+     * JSON object containing weather information.
+     */
     public JSONObject getWeatherJSON(String lat, String lon){
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
