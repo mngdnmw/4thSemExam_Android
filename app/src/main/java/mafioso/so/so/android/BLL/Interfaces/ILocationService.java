@@ -1,4 +1,4 @@
-package mafioso.so.so.android.BLL.LocationService;
+package mafioso.so.so.android.BLL.Interfaces;
 
 import android.location.Location;
 

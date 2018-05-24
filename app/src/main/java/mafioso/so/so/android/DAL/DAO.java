@@ -18,31 +18,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import mafioso.so.so.android.BE.PictureBE;
+import mafioso.so.so.android.BLL.Interfaces.IDAO;
 import mafioso.so.so.android.R;
 
-public class DAO {
+public class DAO implements IDAO {
 
     /** --- Reference to the application context. --- */
-    Context context;
+    Context mContext;
 
     /** --- Firestore DB reference. --- */
-    public FirebaseFirestore m_db;
+    public FirebaseFirestore mDb;
 
     /** --- Firebase Storage reference --- */
     private FirebaseStorage m_storage;
     StorageReference m_storageRef;
-    public static final String FIRE_COLLECTION_PICTURES = "pictures";
 
     /** --- Tag for debug purposes. --- */
     String TAG = "SOSOMAFIOSO::DAO";
 
     public DAO(Context context) {
-        this.context = context;
+        mContext = context;
 
-        this.m_db = FirebaseFirestore.getInstance();
+        this.mDb = FirebaseFirestore.getInstance();
 
         this.m_storage = FirebaseStorage.getInstance();
-        this.m_storageRef = m_storage.getReferenceFromUrl("gs://sosomafioso-5c8ef.appspot.com/images");
+        this.m_storageRef = m_storage.getReferenceFromUrl(mContext.getResources().getString(R.string.FIRE_STORAGE_URL));
     }
 
     /**
@@ -52,10 +52,15 @@ public class DAO {
      * @return
      * A task object to download a byte array.
      */
-    private Task<byte[]> getImage(String id) {
+    protected Task<byte[]> getImage(String id) {
         final long MAX_SIZE = 1024 * 1024;
         Log.d(TAG, "getImage: Attempting download with path " + m_storageRef.child(id + ".JPG").getPath());
         return m_storageRef.child(id + ".jpg").getBytes(MAX_SIZE);
+    }
+
+    public FirebaseFirestore getDb()
+    {
+        return mDb;
     }
 
     /**
@@ -80,7 +85,7 @@ public class DAO {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.e(TAG, "onFailure: Download failed.", exception);
-                Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.mipmap.bird_mock);
+                Bitmap img = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.bird_mock);
                 picture.setObjectImage(img);
                 sendMessage();
             }
@@ -93,7 +98,7 @@ public class DAO {
     private void sendMessage() {
         Log.d("sender", "Broadcasting message");
         Intent intent = new Intent("ImgDlComplete");
-        LocalBroadcastManager.getInstance(this.context).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
     /**
@@ -107,7 +112,7 @@ public class DAO {
     {
         String path = "";
         FileOutputStream out = null;
-        File outputDir = context.getCacheDir(); // context being the Activity pointer
+        File outputDir = mContext.getCacheDir(); // context being the Activity pointer
         File outputFile;
         try {
             outputFile = File.createTempFile("tempImg", ".PNG", outputDir);

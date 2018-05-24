@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mRegistration = mDALFacade.DAO().m_db.collection(mDALFacade.DAO().FIRE_COLLECTION_PICTURES)
+        mRegistration = mDALFacade.DAO().getDb().collection(this.getResources().getString(R.string.FIRE_COLLECTION_PICTURES))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                          @Override
                                          public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {

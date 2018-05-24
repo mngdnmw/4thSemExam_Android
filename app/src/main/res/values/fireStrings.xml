@@ -1,0 +1,4 @@
+<resources>
+    <string name="FIRE_COLLECTION_PICTURES">pictures</string>
+    <string name="FIRE_STORAGE_URL">gs://sosomafioso-5c8ef.appspot.com/images</string>
+</resources>

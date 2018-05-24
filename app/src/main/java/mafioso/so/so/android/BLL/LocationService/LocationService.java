@@ -13,10 +13,12 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.List;
 
+import mafioso.so.so.android.BLL.Interfaces.ILocationService;
+
 public class LocationService implements ILocationService {
 
     /** --- Reference to the application context. --- */
-    Context context;
+    Context mContext;
 
     /** --- Reference to the location manager. --- */
     LocationManager mlocationManager;
@@ -31,7 +33,7 @@ public class LocationService implements ILocationService {
      * Application context.
      */
     public LocationService(Context context) {
-        this.context = context;
+        mContext = context;
         mlocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
@@ -42,7 +44,7 @@ public class LocationService implements ILocationService {
      */
     public Location lastKnownLocation() {
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Has permission, getting location");
             return mlocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
@@ -61,7 +63,7 @@ public class LocationService implements ILocationService {
      */
     public String getAddress(double latitude, double longitude) {
         Address address;
-        Geocoder geoCoder = new Geocoder(context);
+        Geocoder geoCoder = new Geocoder(mContext);
         List<Address> list = null;
         try {
             list = geoCoder.getFromLocation(latitude, longitude, 1);
