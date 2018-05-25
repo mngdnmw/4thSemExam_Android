@@ -133,7 +133,7 @@ public class DetailActivity extends AppCompatActivity {
 
         textView_date.setText(mPicture.getTimeStamp().toString());
         
-        textView_daysResult.setText(""+daysBetween(mPicture.getTimeStamp()));
+        textView_daysResult.setText("Days: "+ daysBetween(mPicture.getTimeStamp()));
 
     }
 
